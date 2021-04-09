@@ -16,11 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
-from BeaverStacks import views
-
-
 urlpatterns = [
     path('BudgetApp/', include('BudgetApp.urls')),
     path('admin/', admin.site.urls),
-    path('', views.index, name='index')
 ]
