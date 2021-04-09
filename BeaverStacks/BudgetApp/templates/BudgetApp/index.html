@@ -2,9 +2,33 @@
 
 <html>
     <body>
+    	    	<!-- As a heading -->
+
+		<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" >Beaver Budgets</a>
+  </nav>
+</div>
     <div class="container">
 
-    	<ul class="nav nav-tabs">
+    	
+
+
+
+		<h2>Hello Beaver Stacks</h2>
+
+    	<div class="btn-group">
+				  <button class="btn btn-secondary btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    Select a Budget
+				  </button>
+				  <div class="dropdown-menu">
+				    <option>Budget A: March 2021</option>
+				    <option>Budget B: April 2021</option>
+				    <option>Budget C: May 2021</option>
+				  </div>
+				</div>
+
+    	<ul class="nav nav-tabs flex-left">
 		    <li><a href="#budget" data-toggle="tab">Budget</a></li>
 		    <li><a href="#transactions" data-toggle="tab">Transactions</a></li>
 		    <li><a href="#stats" data-toggle="tab">Stats</a></li>
@@ -13,68 +37,103 @@
 		    
 
 		    <div class="tab-pane" id="budget">
-		    	<h1>Budget</h1>
+		    	
+
+		    	<div class="container">
+				  <div class="row">
+				    <div class="col-sm">
+				      <h1>Budget</h1>
+				    </div>
+				    <div class="col-sm">
+				      <div class="card">
+        				<span>Total Amount to Be Budgeted: </span>
+        				<input type="text" readonly class="form-control-plaintext" id="budgetAmount" value="$150,000,000">
+
+      		</div>
+				    </div>
+				  </div>
+				</div>
+
+		    	
 
 		  <div class="card">
 			  <div class="card-body">
-			    This is some text within a card body.
+			    A budget helps you reach your goals.
+
+
+			    
 
 			    <table class="table">
 				  <thead>
 				    <tr>
-				      <th scope="col">Bills</th>
-				      <th scope="col">Education</th>
-				      <th scope="col">Cost ofLiving</th>
-				      <th scope="col">Fixed Obligation</th>
+				      <th scope="col">Group</th>
+				      <th scope="col">Transaction Categories</th>
+				      <th scope="col">Amount Budget</th>
+				      <th scope="col">Amount Spent</th>
+				      <th scope="col">Amount Remaining</th>
 				    </tr>
 				  </thead>
 				  <tbody>
+				    
+				    <form>
+					    <tr>
+					      <th scope="row">Bills</th>
+					      <td>Water, Electric</td>
+					      <td>555555</td>
+					      <td>1000</td>
+					      <td>10000</td>
+					      	<td>
+			              <button type="submit" class="btn-sm btn-primary">Update<i class="fas fa-edit"></i></button>
+			            <button type="submit" class="btn-sm btn-danger">Delete<i class="far fa-trash-alt"></i></button>
+			            </td>
+					    </tr>
+				    </form>
+
 				    <tr>
-				      <th scope="row">1</th>
-				      <td>Mark</td>
-				      <td>Otto</td>
-				      <td>@mdo</td>
+				      <th scope="row">Living Expenses </th>
+				      <td>Groceries, Gas, Clothes</td>
+				      <td>44444</td>
+				      <td>4677</td>
+				      <td>334355</td>
+				      <td>
+		              <button type="submit" class="btn-sm btn-primary">Update<i class="fas fa-edit"></i></button>
+		            <button type="submit" class="btn-sm btn-danger">Delete<i class="far fa-trash-alt"></i></button>
+		            </td>
 				    </tr>
 				    <tr>
-				      <th scope="row">2</th>
-				      <td>Jacob</td>
-				      <td>Thornton</td>
-				      <td>@fat</td>
-				    </tr>
-				    <tr>
-				      <th scope="row">3</th>
-				      <td>Larry</td>
-				      <td>the Bird</td>
-				      <td>@twitter</td>
+				      <th scope="row">Shopping</th>
+				      <td>Tech, Recreational Gear, Hobbies, Books</td>
+				      <td>254543</td>
+				      <td>3423566</td>
+				      <td>234234342</td>
+				  	<td>
+		              <button type="submit" class="btn-sm btn-primary">Update<i class="fas fa-edit"></i></button>
+		            <button type="button" class="btn-sm btn-danger">Delete<i class="far fa-trash-alt"></i></button>
+		            </td>
 				    </tr>
 				  </tbody>
 				</table> 
 
-
 				<!-- New Category Form -->
-				<form>
-					<h4>Add a Category</h4>
+				<form method="POST">
+					<h4>Add a New Group</h4>
+					<p>If you have already defined new You can group different categories of transactions together.</p>
 				  <div class="form-inline">
 				  	<div class="col-3">
 				      <input type="text" class="form-control" placeholder="New Category Name">
+				    </div>			    
+					<label>Transaction Categories</label>
+					<select class="selectpicker" multiple data-live-search="true">
+							  <option>Fitness</option>
+							  <option>Doctor's Office</option>
+							  <option>Medical</option>
+							  <option>Car</option>
+							</select>
+				    <div class="col">
+				      <input type="text" class="form-control" placeholder="Amount to Budget">
 				    </div>
 				    <div class="col">
-				      <input type="date" class="form-control" >
-				    </div>				    
-				    <div class="col my-1">
-					 <label class="mr-sm-2" for="inlineFormCustomSelect">Category</label>
-					   <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-					        <option selected>Choose...</option>
-					        <option value="1">One</option>
-					        <option value="2">Two</option>
-					        <option value="3">Three</option>
-					   </select>
-					</div>
-				    <div class="col">
-				      <input type="text" class="form-control" placeholder="New Amount">
-				    </div>
-				    <div class="col">
-				      <input type="submit" class="form-control" value="Add Category">
+				      <input type="submit" class="form-control btn-sm btn-success" value="Add Group">
 				    </div>
 				  </div>
 				</form>
@@ -112,6 +171,7 @@
 			                                    <th>Date</th>
 			                                    <th>Category</th>
 			                                    <th>Amount</th>
+			                                    <th></th>
 			                                </tr>
 			                            </thead>
 			                            <tbody>
@@ -127,7 +187,11 @@
 			                                        </span><input class="tabledit-input form-control input-sm fill" type="text" name="Category" value={{transaction.transaction_category}} style="display: none;" disabled=""></td>
 			                                    <td class="tabledit-view-mode" style="cursor: pointer;"><span class="tabledit-span" style="">{{transaction.transaction_amount}}
 			                                        </span><input class="tabledit-input form-control input-sm fill" type="number" name="Category" value={{transaction.transaction_amount}} style="display: none;" disabled=""></td>
+			                                       <td><button type="submit" class="btn-sm btn-primary">Update<i class="fas fa-edit"></i></button>
+		            <button type="button" class="btn-sm btn-danger">Delete<i class="far fa-trash-alt"></i></button></td>
+			                                        
 			                                </tr>
+			                                		              
 
 			                                {% endfor %}
 <!-- 			                                <tr>
@@ -161,6 +225,34 @@
 			    </div>
 			</div>
 
+			<!-- New Category Form -->
+				<form method="POST">
+					<h4>Add a Transaction</h4>
+				  <div class="form-inline">
+				  	<div class="col-3">
+				      <input type="text" class="form-control" placeholder="New Transaction Name">
+				    </div>
+				    <div class="col">
+				      <input type="date" class="form-control" >
+				    </div>				    
+				    <div class="col my-1">
+					 <label class="mr-sm-2" for="inlineFormCustomSelect">Category</label>
+					   <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+					        <option selected>Choose...</option>
+					        <option value="1">One</option>
+					        <option value="2">Two</option>
+					        <option value="3">Three</option>
+					   </select>
+					</div>
+				    <div class="col">
+				      <input type="text" class="form-control" placeholder="New Amount">
+				    </div>
+				    <div class="col">
+				      <input type="submit" class="form-control btn-sm btn-success" value="Add Transaction">
+				    </div>
+				  </div>
+				</form>
+
 		    </div>
 		    
 
@@ -170,8 +262,7 @@
 		    	<h1>Stats</h1>
 		    </div>
 		</div>
-		
-		
+	
 
 		</div>
 
@@ -198,6 +289,11 @@
 		});
 	</script>
 
+	<script type="text/javascript">
+		
+		$('select').selectpicker();
+	</script>
+
 
 		<link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -206,6 +302,10 @@
 		<script src="https://www.jqueryscript.net/demo/Creating-A-Live-Editable-Table-with-jQuery-Tabledit/jquery.tabledit.js"></script>
 		<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.1/css/responsive.dataTables.min.css">
 		<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 
 	</div>
     </body>
