@@ -17,26 +17,39 @@
 
 		<h2>Hello Beaver Stacks</h2>
 
-    	<div class="btn-group">
+    	<div class="btn-group m-5">
 				  <button class="btn btn-secondary btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				    Select a Budget
 				  </button>
 				  <div class="dropdown-menu">
-				    <option>Budget A: March 2021</option>
-				    <option>Budget B: April 2021</option>
-				    <option>Budget C: May 2021</option>
+				    <option>March 2021</option>
+				    <option>April 2021</option>
+				    <option>May 2021</option>
 				  </div>
 				</div>
 
-    	<ul class="nav nav-tabs flex-left">
+<!--     	<ul class="nav nav-tabs flex-left">
 		    <li><a href="#budget" data-toggle="tab">Budget</a></li>
 		    <li><a href="#transactions" data-toggle="tab">Transactions</a></li>
 		    <li><a href="#stats" data-toggle="tab">Stats</a></li>
-		</ul>
+		</ul> -->
+
+		<!-- Nav tabs -->
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="budget-tab" data-bs-toggle="tab" data-bs-target="#budget" type="button" role="tab" aria-controls="budget" aria-selected="true">Budget</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="transactions-tab" data-bs-toggle="tab" data-bs-target="#transactions" type="button" role="tab" aria-controls="transactions" aria-selected="false">Transactions</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="stats-tab" data-bs-toggle="tab" data-bs-target="#stats" type="button" role="tab" aria-controls="stats" aria-selected="false">Stats</button>
+  </li>
+</ul>
 		<div class="tab-content" id="tabs">
 		    
 
-		    <div class="tab-pane" id="budget">
+		    <div class="tab-pane active" id="budget" role="tabpanel" aria-labelledby="budget-tab">
 		    	
 
 		    	<div class="container">
@@ -44,12 +57,33 @@
 				    <div class="col-sm">
 				      <h1>Budget</h1>
 				    </div>
-				    <div class="col-sm">
-				      <div class="card">
-        				<span>Total Amount to Be Budgeted: </span>
-        				<input type="text" readonly class="form-control-plaintext" id="budgetAmount" value="$150,000,000">
+				    <div class="col-sm">      				
+      			<div class="card">
+      				<div class="card-body">
 
-      		</div>
+
+      					<div class="form-inline">
+						    <div class="col-md-12 form-group">
+						         <label class="col-sm-2 col-form-label"  for="name">Total Budget Amount: </label>
+						         <input type="text" class="form-control" name="name" id="budgetAmount" value="$70,000,000" readonly/>
+						    </div>
+						</div>
+
+						<div class="form-inline">
+						    <div class="col-md-12 form-group">
+						         <label class="col-sm-2 col-form-label"  for="name">Total Amount Spent: </label>
+						         <input type="text" class="form-control" name="name" id="budgetAmount" value="$150,000,000" readonly/>
+						    </div>
+						</div>
+
+						<div class="form-inline">
+						    <div class="col-md-12 form-group">
+						         <label class="col-sm-2 col-form-label"  for="name">Total Amount Remaining: </label>
+						         <input type="text" class="form-control" name="name" id="budgetAmount" value="$26,000,000" readonly/>
+						    </div>
+						</div>
+      				</div>
+
 				    </div>
 				  </div>
 				</div>
@@ -117,7 +151,7 @@
 
 				<div style="display: flex;">
 				 		<form method="POST">
-				 			<div class='card'>
+				 			<div class='card m-3 p-3'>
 				 				<h4>Add a New Group</h4>
 							<p>You can group existing categories of transactions together.</p>
 						  <div class="form-inline">
@@ -143,6 +177,7 @@
 						</form>
 <!-- New Category Form -->
 						<form method="POST">
+							<div class='card m-3 p-3'>
 							<h4>Add a New Category</h4>
 							<p>All categories will be displayed on the Transactions page.</p>
 							<p>All categories are selectable as Groups.</p>
@@ -154,6 +189,7 @@
 						      <input type="submit" class="form-control btn-sm btn-success" value="Add Category">
 						    </div>
 						  </div>
+						  </div>
 						</form>
 				</div>
 
@@ -161,10 +197,11 @@
 			  </div>
 			</div>
 		</div>
+		</div>
 		    
 
 
-		    <div class="tab-pane" id="transactions">
+		    	<div class="tab-pane" id="transactions" role="tabpanel" aria-labelledby="transactions-tab">
 		    		<!-- Overall Content for Transactions Tab -->
 		  <h1>Transactions</h1>
 
@@ -277,7 +314,8 @@
 		    
 
 
-		    <div class="tab-pane" id="stats">
+
+		    			    	<div class="tab-pane" id="stats" role="tabpanel" aria-labelledby="stats-tab">
 
 		    	<h1>Stats</h1>
 		    </div>
@@ -289,24 +327,35 @@
 
 		<!-- scripts to load the different tabs -->
 		<script>
-		$(document).ready(function(){
-		    $("#nav-budget a").click(function(e){
-		        e.preventDefault();
-		        $(this).tab('show');
-		    });
-		});
-		$(document).ready(function(){
-		    $("#nav-transactions a").click(function(e){
-		        e.preventDefault();
-		        $(this).tab('show');
-		    });
-		});
-		$(document).ready(function(){
-		    $("#nav-stats a").click(function(e){
-		        e.preventDefault();
-		        $(this).tab('show');
-		    });
-		});
+		var triggerTabList = [].slice.call(document.querySelectorAll('#budget a'))
+triggerTabList.forEach(function (triggerEl) {
+  var tabTrigger = new bootstrap.Tab(triggerEl)
+
+  triggerEl.addEventListener('click', function (event) {
+    event.preventDefault()
+    tabTrigger.show()
+  })
+});
+
+		var triggerTabList = [].slice.call(document.querySelectorAll('#transactions a'))
+triggerTabList.forEach(function (triggerEl) {
+  var tabTrigger = new bootstrap.Tab(triggerEl)
+
+  triggerEl.addEventListener('click', function (event) {
+    event.preventDefault()
+    tabTrigger.show()
+  })
+});
+
+		var triggerTabList = [].slice.call(document.querySelectorAll('#stats a'))
+triggerTabList.forEach(function (triggerEl) {
+  var tabTrigger = new bootstrap.Tab(triggerEl)
+
+  triggerEl.addEventListener('click', function (event) {
+    event.preventDefault()
+    tabTrigger.show()
+  })
+});
 	</script>
 
 	<script type="text/javascript">
@@ -315,17 +364,22 @@
 	</script>
 
 
-		<link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+		<!-- <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 		<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 		<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		<script src="https://www.jqueryscript.net/demo/Creating-A-Live-Editable-Table-with-jQuery-Tabledit/jquery.tabledit.js"></script>
 		<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.1/css/responsive.dataTables.min.css">
-		<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+		<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script> -->
 
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+</body>
+</html>
 
 	</div>
     </body>
