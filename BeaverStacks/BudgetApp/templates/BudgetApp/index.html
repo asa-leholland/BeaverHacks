@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+
+<html>
+    <body>
+    <div class="container">
+
+    	<ul class="nav nav-tabs">
+		    <li><a href="#budget" data-toggle="tab">Budget</a></li>
+		    <li><a href="#transactions" data-toggle="tab">Transactions</a></li>
+		    <li><a href="#stats" data-toggle="tab">Stats</a></li>
+		</ul>
+		<div class="tab-content" id="tabs">
+		    
+
+		    <div class="tab-pane" id="budget">
+		    	<h1>Budget</h1>
+
+		  <div class="card">
+			  <div class="card-body">
+			    This is some text within a card body.
+
+			    <table class="table">
+				  <thead>
+				    <tr>
+				      <th scope="col">Bills</th>
+				      <th scope="col">Education</th>
+				      <th scope="col">Cost ofLiving</th>
+				      <th scope="col">Fixed Obligation</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr>
+				      <th scope="row">1</th>
+				      <td>Mark</td>
+				      <td>Otto</td>
+				      <td>@mdo</td>
+				    </tr>
+				    <tr>
+				      <th scope="row">2</th>
+				      <td>Jacob</td>
+				      <td>Thornton</td>
+				      <td>@fat</td>
+				    </tr>
+				    <tr>
+				      <th scope="row">3</th>
+				      <td>Larry</td>
+				      <td>the Bird</td>
+				      <td>@twitter</td>
+				    </tr>
+				  </tbody>
+				</table> 
+
+
+				<!-- New Category Form -->
+				<form>
+					<h4>Add a Category</h4>
+				  <div class="form-inline">
+				  	<div class="col-3">
+				      <input type="text" class="form-control" placeholder="New Category Name">
+				    </div>
+				    <div class="col">
+				      <input type="date" class="form-control" >
+				    </div>				    
+				    <div class="col my-1">
+					 <label class="mr-sm-2" for="inlineFormCustomSelect">Category</label>
+					   <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+					        <option selected>Choose...</option>
+					        <option value="1">One</option>
+					        <option value="2">Two</option>
+					        <option value="3">Three</option>
+					   </select>
+					</div>
+				    <div class="col">
+				      <input type="text" class="form-control" placeholder="New Amount">
+				    </div>
+				    <div class="col">
+				      <input type="submit" class="form-control" value="Add Category">
+				    </div>
+				  </div>
+				</form>
+
+			  </div>
+			</div>
+		</div>
+		    
+
+
+		    <div class="tab-pane" id="transactions">
+		    		<!-- Overall Content for Transactions Tab -->
+		  <h1>Transactions</h1>
+
+
+
+		  	<!-- snippet from https://bbbootstrap.com/snippets/responsive-inline-editable-table-row-91465877 -->
+					  <script type="text/javascript" src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1567487539/jquery.tabledit.js"></script>
+			<div class="container mt-100">
+			    <div class="row">
+			        <div class="col-md-12">
+			            <div class="card">
+			                <div class="card-header">
+			                    <h5>Edit row with Click</h5>
+			                    <span>Eventually we should be able to click on row to perform edit action then Enter for save</span>
+			                </div>
+			                <div class="card-block">
+			                    <div class="table-responsive">
+
+			                        <table class="table table-striped table-bordered" id="example-1">
+			                            <thead>
+			                                <tr>
+			                                    <th style="display: none;">#</th>
+			                                    <th>Transaction</th>
+			                                    <th>Date</th>
+			                                    <th>Category</th>
+			                                    <th>Amount</th>
+			                                </tr>
+			                            </thead>
+			                            <tbody>
+
+			                            	{% for transaction in transactions %}
+			                                <tr>
+			                                    <th scope="row" style="display: none;">{{transaction.transaction_id}}</th>
+			                                    <td class="tabledit-view-mode" style="cursor: pointer;"><span class="tabledit-span">{{transaction.transaction_name}}
+			                                        </span><input class="tabledit-input form-control input-sm" type="text" name="Transaction" value={{transaction.transaction_name}} style="display: none;" disabled=""></td>
+			                                    <td class="tabledit-view-mode" style="cursor: pointer;"><span class="tabledit-span" style="">{{transaction.transaction_date}}
+			                                        </span><input class="tabledit-input form-control input-sm fill" type="date" name="Date" value={{transaction.transaction_date}} style="display: none;" disabled=""></td>
+			                                    <td class="tabledit-view-mode" style="cursor: pointer;"><span class="tabledit-span" style="">{{transaction.transaction_category}}
+			                                        </span><input class="tabledit-input form-control input-sm fill" type="text" name="Category" value={{transaction.transaction_category}} style="display: none;" disabled=""></td>
+			                                    <td class="tabledit-view-mode" style="cursor: pointer;"><span class="tabledit-span" style="">{{transaction.transaction_amount}}
+			                                        </span><input class="tabledit-input form-control input-sm fill" type="number" name="Category" value={{transaction.transaction_amount}} style="display: none;" disabled=""></td>
+			                                </tr>
+
+			                                {% endfor %}
+<!-- 			                                <tr>
+			                                    <th scope="row" style="display: none;">2</th>
+			                                    <td class="tabledit-view-mode" style="cursor: pointer;"><span class="tabledit-span">Mark
+			                                        </span><input class="tabledit-input form-control input-sm" type="text" name="First Name" value="Jacob
+			" style="display: none;" disabled=""></td>
+			                                    <td class="tabledit-view-mode" style="cursor: pointer;"><span class="tabledit-span">Henry
+			                                        </span><input class="tabledit-input form-control input-sm" type="text" name="Last Name" value="Thorntonkk
+			" style="display: none;" disabled=""></td>
+			                                    <td class="tabledit-view-mode"><span class="tabledit-span">Java Developer</span>
+			                                    </td>
+			                                </tr>
+			                                <tr>
+			                                    <th scope="row" style="display: none;">3</th>
+			                                    <td class="tabledit-view-mode" style="cursor: pointer;"><span class="tabledit-span">Larry
+			                                        </span><input class="tabledit-input form-control input-sm" type="text" name="First Name" value="Larry
+			" style="display: none;" disabled=""></td>
+			                                    <td class="tabledit-view-mode" style="cursor: pointer;"><span class="tabledit-span">Pingor
+			                                        </span><input class="tabledit-input form-control input-sm" type="text" name="Last Name" value="the Bird
+			" style="display: none;" disabled=""></td>
+			                                    <td class="tabledit-view-mode"><span class="tabledit-span">Hybris Developer</span>
+			                                    </td>
+			                                </tr> -->
+			                            </tbody>
+			                        </table>
+			                    </div>
+			                </div>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+
+		    </div>
+		    
+
+
+		    <div class="tab-pane" id="stats">
+
+		    	<h1>Stats</h1>
+		    </div>
+		</div>
+		
+		
+
+		</div>
+
+
+		<!-- scripts to load the different tabs -->
+		<script>
+		$(document).ready(function(){
+		    $("#nav-budget a").click(function(e){
+		        e.preventDefault();
+		        $(this).tab('show');
+		    });
+		});
+		$(document).ready(function(){
+		    $("#nav-transactions a").click(function(e){
+		        e.preventDefault();
+		        $(this).tab('show');
+		    });
+		});
+		$(document).ready(function(){
+		    $("#nav-stats a").click(function(e){
+		        e.preventDefault();
+		        $(this).tab('show');
+		    });
+		});
+	</script>
+
+
+		<link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+		<script src="https://www.jqueryscript.net/demo/Creating-A-Live-Editable-Table-with-jQuery-Tabledit/jquery.tabledit.js"></script>
+		<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.1/css/responsive.dataTables.min.css">
+		<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+	</div>
+    </body>
+</html>
