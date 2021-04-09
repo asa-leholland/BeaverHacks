@@ -56,5 +56,5 @@ class UserBudget(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     budget_id = models.ForeignKey(Budget, on_delete=models.CASCADE)
     year = models.DateTimeField(default=timezone.now().year)
-    month = models.DecimalField(default=timezone.now().month)
+    month = models.DateField(default=timezone.now().month)
 
