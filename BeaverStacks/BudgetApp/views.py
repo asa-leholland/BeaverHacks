@@ -13,17 +13,31 @@ def base(request, *args, **kwargs):
     return render(request, 'base.html', context)
 
 
-def index(request, *args, **kwargs):
-    print(*args)
-    print(**kwargs)
-    # form = BudgetForm()
-    context = {'budgets': get_month_year_combinations(),
-               'transactions': get_transactions()}
+def index(request):
+    groups = GroupForm()
+    transactions = TransactionsForm()
+    categories = CategoryForm()
+    budgets = BudgetForm()
+
+
+
+    # This Works
+    # if request.POST['Category']:
+    #     print(request.POST['Category'])
+    #     categories = create_category(request, categories)
+
+    context = {
+        'month_year_combinations': get_month_year_combinations(),
+        'budgets': budgets,
+        'transactions': transactions,
+        'categories': categories,
+        'groups': groups
+    }
     return render(request, 'index.html', context)
 
 
 def get_month_year_combinations():
-    form = BudgetForm()
+    # form = BudgetForm()
     budget_list = ['May 2017', 'June 2017', 'July 2017']
     # for budget_item in form:
     #     budget_list.append(str(budget_item.month) + str(budget_item.year))
@@ -96,17 +110,17 @@ def delete_group(request, pk):
     return render(request, 'BudgetApp/index.html', context)
 
 
-def create_category(request):
+def create_category(request, form):
     """ Creates a new Category """
-    form = CategoryForm()
-
+    print('Called')
     if request.method == 'POST':
+        print('entered')
         form = CategoryForm(request.POST)
         if form.is_valid():
             form.save()
 
     context = {'form': form}
-    return render(request, 'BudgetApp/index.html', context)
+    return context
 
 
 def update_category(request, pk):
