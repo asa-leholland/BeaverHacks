@@ -1,48 +1,60 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from datetime import date
+
 
 # Create your models here.
 
 
 class Groups(models.Model):
-    groupId = models.IntegerField()
-    groupDescription = models.TextField()
+    """ Model to handle main category groupings of the budget"""
+    group_id = models.CharField(max_length=100)
+    group_description = models.CharField(max_length=100)
 
-
+    def __str__(self):
+        return self.group_id
+    
+    
 class Categories(models.Model):
-    categoryId = models.IntegerField()
-    categoryDescription = models.TextField()
+    """ Model that handles subcategories and maps them back to a main category"""
+    group_Id = models.ForeignKey(Groups, on_delete=models.CASCADE)
+    category_id = models.CharField(max_length=100)
+    category_description = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.category_id
 
 
 class GroupCategories(models.Model):
-    groupId = models.ForeignKey(Groups, on_delete=models.CASCADE)
-    categoryId = models.ForeignKey(Categories, on_delete=models.CASCADE)
-
-
-class Transaction(models.Model):
-    transactionId = models.IntegerField()
-    vendor = models.TextField()
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
-    transaction_date = models.DateTimeField(default=timezone.now)
+    group_id = models.ForeignKey(Groups, on_delete=models.CASCADE)
+    category_id = models.ForeignKey(Categories, on_delete=models.CASCADE)
+    
+    
+class Transactions(models.Model):
+    transaction_id = models.PositiveIntegerField(default=1)
+    vendor = models.CharField(default='', max_length=50)
+    date = models.DateField(default=date.today)
+    amount = models.DecimalField(default=0.00, max_digits=16, decimal_places=2)
 
 
 class Budget(models.Model):
-    budgetId = models.IntegerField()
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
-    spent = models.DecimalField(max_digits=10, decimal_places=2)
-    remaining = models.DecimalField(max_digits=10, decimal_places=2)
+    budget_id = models.IntegerField()
+    amount = models.DecimalField(max_digits=16, decimal_places=2)
+    spent = models.DecimalField(max_digits=16, decimal_places=2)
+    remaining = models.DecimalField(max_digits=16, decimal_places=2)
 
 
 class UserTransactions(models.Model):
-    userId = models.ForeignKey(User, on_delete=models.CASCADE)
-    transactionId = models.ForeignKey(Transaction, on_delete=models.CASCADE)
-    categoryId = models.ForeignKey(Categories, on_delete=models.CASCADE)
-    groupId = models.ForeignKey(Groups, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    transaction_id = models.ForeignKey(Transactions, on_delete=models.CASCADE)
+    category_id = models.ForeignKey(Categories, on_delete=models.CASCADE)
+    group_id = models.ForeignKey(Groups, on_delete=models.CASCADE)
 
 
 class UserBudget(models.Model):
-    userId = models.ForeignKey(User, on_delete=models.CASCADE)
-    budgetId = models.ForeignKey(Budget, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    budget_id = models.ForeignKey(Budget, on_delete=models.CASCADE)
     year = models.DateTimeField(default=timezone.now().year)
     month = models.DecimalField(default=timezone.now().month)
+
