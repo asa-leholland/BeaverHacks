@@ -1,0 +1,81 @@
+.footer{
+    background-color: #383737;
+    color: azure;
+    text-align: center;
+    margin-top: 1em;
+  }
+
+#data-entry-div{
+    display: grid;
+    margin: 1em;
+    align-items: center;
+}
+
+#data-filtering{
+  display: grid;
+  margin: 1em;
+  align-items: center;
+
+}
+
+#results{
+  margin: 1em;
+  align-items: center;
+}
+
+.intro-div{
+  margin: 1em;
+  align-items: center;
+}
+
+.two-column{
+  display: flex;
+  justify-content: space-between;
+  margin-right: 9em;
+
+}
+
+
+.inner-div{
+  margin: 0.5em;
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+.access-level{
+  color: red;
+}
+
+.ali-test{
+  background-color: aqua;
+}
+
+.content_center {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  width: 250px;
+  height: 150px;
+}
+
+a:hover {
+  font-weight: 500;
+}
+
+.navbar-nav li:hover .dropdown-menu {
+    display: block;
+}
+
+.filter-form{
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+.input-form{
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 1em;
+}
