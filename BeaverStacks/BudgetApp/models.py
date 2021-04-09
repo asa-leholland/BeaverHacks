@@ -30,9 +30,6 @@ class GroupCategories(models.Model):
     group_id = models.ForeignKey(Groups, on_delete=models.CASCADE)
     category_id = models.ForeignKey(Categories, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return self.group_id
-
     
 class Transactions(models.Model):
     transaction_id = models.AutoField(primary_key=True)
@@ -40,12 +37,18 @@ class Transactions(models.Model):
     date = models.DateField(default=date.today)
     amount = models.DecimalField(default=0.00, max_digits=16, decimal_places=2)
 
+    def __str__(self):
+        return self.transaction_id
 
-class Budget(models.Model):
+
+class Budgets(models.Model):
     budget_id = models.AutoField(primary_key=True)
     amount = models.DecimalField(default=0.00, max_digits=16, decimal_places=2)
     spent = models.DecimalField(default=0.00, max_digits=16, decimal_places=2)
     remaining = models.DecimalField(default=0.00, max_digits=16, decimal_places=2)
+
+    def __str__(self):
+        return self.budget_id
 
 
 class UserTransactions(models.Model):
@@ -57,7 +60,7 @@ class UserTransactions(models.Model):
 
 class UserBudget(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    budget_id = models.ForeignKey(Budget, on_delete=models.CASCADE)
+    budget_id = models.ForeignKey(Budgets, on_delete=models.CASCADE)
     year = models.DateTimeField(default=timezone.now().year)
     month = models.DateField(default=timezone.now().month)
 
