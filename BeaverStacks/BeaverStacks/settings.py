@@ -25,19 +25,19 @@ SECRET_KEY = 'django-insecure-#c%(iif!0a^l&d@ht(&+*fx=22i(&7$7dwjt3qxcf+u_w0)h2(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'BudgetApp.apps.BudgetappConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'BudgetApp.apps.BudgetappConfig'
 ]
 
 MIDDLEWARE = [

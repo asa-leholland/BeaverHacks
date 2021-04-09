@@ -9,6 +9,12 @@ class GroupForm(ModelForm):
         fields = ['group_description']
 
 
+class TransactionsForm(ModelForm):
+    class Meta:
+        model = Transactions
+        fields = ['vendor', 'date', 'amount']
+
+
 class CategoryForm(ModelForm):
     class Meta:
         model = Categories
