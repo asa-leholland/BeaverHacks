@@ -94,6 +94,7 @@
 
 				    </div>
 				  </div>
+
 				</div>
 
 		    	
@@ -156,28 +157,65 @@
 				  </tbody>
 				</table> 
 
+      			<div class="card">
+      				<div class="card-body">
 
-				<div style="display: flex;">
-				 		<form method="POST">
-				 			<div class='card m-3 p-3'>
-				 				<h4>Add a New Group</h4>
+      					<div class="row">
+      						<h4>Add a New Group</h4>
 							<p>You can group existing categories of transactions together.</p>
-						  <div class="form-inline">
-						  	<div class="col p1">
-						      <input type="text" class="form-control" placeholder="New Group Name">
-						    </div>			    
-							<div class='p1'>Select all transaction categories you want to group:</div>
+						    <div class="col-sm">
+						      <div class="form-inline">
+								    <div class="col p1">
+								      <input type="text" class="form-control" placeholder="New Group Name">
+								    </div>
+								</div>
+						    </div>
+						    <div class="col-sm">
+						      <div class="form-inline">
+						    <div class="col-md-12 form-group">
+						         <div class='p1'>Select all transaction categories you want to group:</div>
 							<select class="selectpicker w-100" multiple data-live-search="true">
 									  <option>Fitness</option>
 									  <option>Doctor's Office</option>
 									  <option>Medical</option>
 									  <option>Car</option>
 									</select>
+						    </div>
+						</div>
+						    </div>
+						    <div class="col-sm">
+						      <div class="form-inline">
+						    <div class="col-md-12 form-group">
+						         <input type="text" class="form-control" placeholder="Amount to Budget">
+						    </div>
+						</div>
+						    </div>
+						    <div class="col-sm">
+						      <div class="form-inline">
+						    <div class="col-md-12 form-group">
+						         <input type="submit" class="form-control btn-sm btn-success" value="Add Group">
+						    </div>
+						</div>
+						    </div>
+						
+      				</div>
+
+				    </div>
+				  </div>
+
+
+				<div style="display: flex;">
+				 		<form method="POST">
+				 			<div class='card m-3 p-3'>
+				 				
+						  <div class="form-inline">
+						  				    
+							
 						    <div class="col">
-						      <input type="text" class="form-control" placeholder="Amount to Budget">
+						      
 						    </div>
 						    <div class="col">
-						      <input type="submit" class="form-control btn-sm btn-success" value="Add Group">
+						      
 						    </div>
 						  </div>
 				 			</div>
