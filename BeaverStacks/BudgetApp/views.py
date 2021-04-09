@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .forms import GroupForm
+from .forms import GroupForm, CategoryForm, GroupCategoryForm, BudgetForm, UserTransactionForm, UserBudgetForm
 from django.http import HttpResponse
 
 
