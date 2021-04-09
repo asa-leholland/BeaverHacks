@@ -9,7 +9,7 @@ from datetime import date
 
 class Groups(models.Model):
     """ Model to handle main category groupings of the budget"""
-    group_id = models.CharField(max_length=100)
+    group_id = models.AutoField(primary_key=True)
     group_description = models.CharField(max_length=100)
 
     def __str__(self):
@@ -18,8 +18,8 @@ class Groups(models.Model):
     
 class Categories(models.Model):
     """ Model that handles subcategories and maps them back to a main category"""
+    category_id = models.AutoField(primary_key=True)
     group_Id = models.ForeignKey(Groups, on_delete=models.CASCADE)
-    category_id = models.CharField(max_length=100)
     category_description = models.CharField(max_length=100)
 
     def __str__(self):
@@ -29,20 +29,23 @@ class Categories(models.Model):
 class GroupCategories(models.Model):
     group_id = models.ForeignKey(Groups, on_delete=models.CASCADE)
     category_id = models.ForeignKey(Categories, on_delete=models.CASCADE)
-    
+
+    def __str__(self):
+        return self.group_id
+
     
 class Transactions(models.Model):
-    transaction_id = models.PositiveIntegerField(default=1)
+    transaction_id = models.AutoField(primary_key=True)
     vendor = models.CharField(default='', max_length=50)
     date = models.DateField(default=date.today)
     amount = models.DecimalField(default=0.00, max_digits=16, decimal_places=2)
 
 
 class Budget(models.Model):
-    budget_id = models.IntegerField()
-    amount = models.DecimalField(max_digits=16, decimal_places=2)
-    spent = models.DecimalField(max_digits=16, decimal_places=2)
-    remaining = models.DecimalField(max_digits=16, decimal_places=2)
+    budget_id = models.AutoField(primary_key=True)
+    amount = models.DecimalField(default=0.00, max_digits=16, decimal_places=2)
+    spent = models.DecimalField(default=0.00, max_digits=16, decimal_places=2)
+    remaining = models.DecimalField(default=0.00, max_digits=16, decimal_places=2)
 
 
 class UserTransactions(models.Model):
