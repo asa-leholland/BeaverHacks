@@ -27,16 +27,16 @@ class Categories(models.Model):
 
 
 class GroupCategories(models.Model):
-    group_id = models.ForeignKey(Groups, on_delete=models.CASCADE)
-    category_id = models.ForeignKey(Categories, on_delete=models.CASCADE)
-
+    group_id = models.ForeignKey(Group, on_delete=models.CASCADE)
+    category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
+    
     
 class Transactions(models.Model):
     transaction_id = models.AutoField(primary_key=True)
     vendor = models.CharField(default='', max_length=50)
     date = models.DateField(default=date.today)
     amount = models.DecimalField(default=0.00, max_digits=16, decimal_places=2)
-
+    
     def __str__(self):
         return self.transaction_id
 
@@ -54,7 +54,7 @@ class Budgets(models.Model):
 class UserTransactions(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     transaction_id = models.ForeignKey(Transactions, on_delete=models.CASCADE)
-    category_id = models.ForeignKey(Categories, on_delete=models.CASCADE)
+    category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
     group_id = models.ForeignKey(Groups, on_delete=models.CASCADE)
 
 
