@@ -1,17 +1,17 @@
 from django.forms import ModelForm
-from .models import Group, Category, GroupCategories, Transactions, Budget, UserTransactions, UserBudget
+from .models import Groups, Categories, GroupCategories, Transactions, Budgets, UserTransactions, UserBudget
 
 
 # This file will be used to create forms for HTML embedding of the data
 class GroupForm(ModelForm):
     class Meta:
-        model = Group
+        model = Groups
         fields = ['group_description']
 
 
 class CategoryForm(ModelForm):
     class Meta:
-        model = Category
+        model = Categories
         fields = ['category_id, category_description']
 
 
@@ -23,7 +23,7 @@ class GroupCategoryForm(ModelForm):
 
 class BudgetForm(ModelForm):
     class Meta:
-        model = Budget
+        model = Budgets
         fields = ['vendor, date, amount']
 
 
