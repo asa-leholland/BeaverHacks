@@ -6,27 +6,23 @@
 
 		<div class="container">
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" >Beaver Budgets</a>
+    <a class="navbar-brand p-3" >Beaver Budgets</a>
   </nav>
 </div>
     <div class="container">
 
-    	
+    
 
-
-
-		<h2>Hello Beaver Stacks</h2>
-
-    	<div class="btn-group m-5">
-				  <button class="btn btn-secondary btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				    Select a Budget
-				  </button>
-				  <div class="dropdown-menu">
-				    <option>March 2021</option>
-				    <option>April 2021</option>
-				    <option>May 2021</option>
-				  </div>
-				</div>
+		<div class="dropdown">
+		  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+		    Select a Budget
+		  </button>
+		  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+		    <li><a class="dropdown-item" href="#">March 2021</a></li>
+		    <li><a class="dropdown-item" href="#">April 2021</a></li>
+		    <li><a class="dropdown-item" href="#">May 2021</a></li>
+		  </ul>
+		</div>
 
 <!--     	<ul class="nav nav-tabs flex-left">
 		    <li><a href="#budget" data-toggle="tab">Budget</a></li>
@@ -35,7 +31,7 @@
 		</ul> -->
 
 		<!-- Nav tabs -->
-<ul class="nav nav-tabs" id="myTab" role="tablist">
+<ul class="nav nav-tabs mt-2" id="myTab" role="tablist">
   <li class="nav-item" role="presentation">
     <button class="nav-link active" id="budget-tab" data-bs-toggle="tab" data-bs-target="#budget" type="button" role="tab" aria-controls="budget" aria-selected="true">Budget</button>
   </li>
@@ -46,7 +42,7 @@
     <button class="nav-link" id="stats-tab" data-bs-toggle="tab" data-bs-target="#stats" type="button" role="tab" aria-controls="stats" aria-selected="false">Stats</button>
   </li>
 </ul>
-		<div class="tab-content" id="tabs">
+		<div class="tab-content mt-5" id="tabs">
 		    
 
 		    <div class="tab-pane active" id="budget" role="tabpanel" aria-labelledby="budget-tab">
@@ -55,7 +51,7 @@
 		    	<div class="container">
 
 
-				      <h1>Budget</h1>
+				      <div class='p5 m5'><h1 >Budget</h1></div>
 
 
 				    				  <div class="row">      				
@@ -167,11 +163,11 @@
 				 				<h4>Add a New Group</h4>
 							<p>You can group existing categories of transactions together.</p>
 						  <div class="form-inline">
-						  	<div class="col-3">
+						  	<div class="col p1">
 						      <input type="text" class="form-control" placeholder="New Group Name">
 						    </div>			    
-							<label>Transaction Categories</label>
-							<select class="selectpicker" multiple data-live-search="true">
+							<div class='p1'>Select all transaction categories you want to group:</div>
+							<select class="selectpicker w-100" multiple data-live-search="true">
 									  <option>Fitness</option>
 									  <option>Doctor's Office</option>
 									  <option>Medical</option>
@@ -188,21 +184,6 @@
 							
 						</form>
 <!-- New Category Form -->
-						<form method="POST">
-							<div class='card m-3 p-3'>
-							<h4>Add a New Category</h4>
-							<p>All categories will be displayed on the Transactions page.</p>
-							<p>All categories are selectable as Groups.</p>
-						  <div class="form-inline">
-						  	<div class="col-3">
-						      <input type="text" class="form-control" placeholder="New Category Name">
-						    </div>			    
-						    <div class="col">
-						      <input type="submit" class="form-control btn-sm btn-success" value="Add Category">
-						    </div>
-						  </div>
-						  </div>
-						</form>
 				</div>
 
 
@@ -215,7 +196,7 @@
 
 		    	<div class="tab-pane" id="transactions" role="tabpanel" aria-labelledby="transactions-tab">
 		    		<!-- Overall Content for Transactions Tab -->
-		  <h1>Transactions</h1>
+		  <div class='p5 m5'><h1 >Transactions</h1></div>
 
 
 
@@ -294,34 +275,56 @@
 			    </div>
 			</div>
 
-			<!-- New Category Form -->
-				<form method="POST">
-					<h4>Add a Transaction</h4>
-				  <div class="form-inline">
-				  	<div class="col-3">
-				      <input type="text" class="form-control" placeholder="New Transaction Name">
-				    </div>
-				    <div class="col">
-				      <input type="date" class="form-control" >
-				    </div>				    
-				    <div class="col my-1">
-					 <label class="mr-sm-2" for="inlineFormCustomSelect">Category</label>
-					   <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-					        <option selected>Choose...</option>
-					        <option value="1">One</option>
-					        <option value="2">Two</option>
-					        <option value="3">Three</option>
-					   </select>
-					</div>
-				    <div class="col">
-				      <input type="text" class="form-control" placeholder="New Amount">
-				    </div>
-				    <div class="col">
-				      <input type="submit" class="form-control btn-sm btn-success" value="Add Transaction">
-				    </div>
-				  </div>
-				</form>
+							<div style="display: flex;">
+					<form method="POST">
+									<div class='card m-3 p-3'>
+									<h4>Add new transaction</h4>
+								  <div class="form-inline">
+									  	<div class="col p-2">
+									      <input type="text" class="form-control" placeholder="New Transaction Name">
+									    </div>
+									    <div class="col p-2">
+									      <input type="date" class="form-control" >
+									    </div>
+								 <label class="mr-sm-2" for="inlineFormCustomSelect">Select a Category</label>
+										   <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+										        <option selected>Choose...</option>
+										        <option value="1">One</option>
+										        <option value="2">Two</option>
+										        <option value="3">Three</option>
+										   </select>
+								  	<div class="col p-2">
+								      <input type="text" class="form-control" placeholder="New Amount">
+								    </div>			    
+								    <div class="col p-2">
+								      <input type="submit" class="form-control btn-sm btn-success" value="Add Transaction">
+								    </div>
+								  </div>
+								  </div>
+								</form>
+<!-- New Category Form -->
+						<form method="POST">
+							<div class='card m-3 p-3'>
+							<h4>Add a New Category</h4>
+							<p>All categories will be displayed on the Transactions page.</p>
+							<p>All categories are selectable as Groups.</p>
+						  <div class="form-inline">
+						  	<div class="col">
+						      <input type="text" class="form-control" placeholder="New Category Name">
+						    </div>			    
+						    <div class="col">
+						      <input type="submit" class="form-control btn-sm btn-success" value="Add Category">
+						    </div>
+						  </div>
+						  </div>
+						</form>
+				</div>
 
+			<!-- New Category Form -->
+			<div class='w-50'>
+			
+			</div>
+			
 		    </div>
 		    
 
@@ -329,7 +332,7 @@
 
 		    			    	<div class="tab-pane" id="stats" role="tabpanel" aria-labelledby="stats-tab">
 
-		    	<h1>Stats</h1>
+		    	<div class='p5 m5'><h1 >Stats</h1></div>
 		    </div>
 		</div>
 	
