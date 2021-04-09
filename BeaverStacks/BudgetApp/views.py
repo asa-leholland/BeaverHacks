@@ -5,10 +5,29 @@ from .models import *
 
 
 # Create your views here.
-def index(request):
-    form = GroupForm()
+def base(request, *args, **kwargs):
+    print(*args)
+    print(**kwargs)
+    form = BudgetForm()
     context = {'form': form}
-    return render(request, 'BudgetApp/index.html', context)
+    return render(request, 'base.html', context)
+
+
+def index(request, *args, **kwargs):
+    print(*args)
+    print(**kwargs)
+    # form = BudgetForm()
+    context = {'budgets': get_month_year_combinations(),
+               'transactions': get_transactions()}
+    return render(request, 'index.html', context)
+
+
+def get_month_year_combinations():
+    form = BudgetForm()
+    budget_list = ['May 2017', 'June 2017', 'July 2017']
+    # for budget_item in form:
+    #     budget_list.append(str(budget_item.month) + str(budget_item.year))
+    return budget_list
 
 
 def add_transaction(request):

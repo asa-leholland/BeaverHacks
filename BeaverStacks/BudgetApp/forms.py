@@ -45,7 +45,9 @@ class BudgetForm(ModelForm):
         fields = [
             'amount',
             'spent',
-            'remaining'
+            'remaining',
+            'year',
+            'month'
         ]
 
 
@@ -66,6 +68,4 @@ class UserBudgetForm(ModelForm):
         fields = [
             'user_id',
             'budget_id',
-            'year',
-            'month'
         ]

@@ -46,6 +46,8 @@ class Budgets(models.Model):
     amount = models.DecimalField(default=0.00, max_digits=16, decimal_places=2)
     spent = models.DecimalField(default=0.00, max_digits=16, decimal_places=2)
     remaining = models.DecimalField(default=0.00, max_digits=16, decimal_places=2)
+    year = models.DateTimeField(default=timezone.now().year)
+    month = models.DateField(default=timezone.now().month)
 
     def __str__(self):
         return self.budget_id
@@ -61,6 +63,4 @@ class UserTransactions(models.Model):
 class UserBudget(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     budget_id = models.ForeignKey(Budgets, on_delete=models.CASCADE)
-    year = models.DateTimeField(default=timezone.now().year)
-    month = models.DateField(default=timezone.now().month)
 
