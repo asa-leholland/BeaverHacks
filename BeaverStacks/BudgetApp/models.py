@@ -19,7 +19,7 @@ class Groups(models.Model):
 class Categories(models.Model):
     """ Model that handles subcategories and maps them back to a main category"""
     category_id = models.AutoField(primary_key=True)
-    group_Id = models.ForeignKey(Groups, on_delete=models.CASCADE)
+    group_id = models.ForeignKey(Groups, on_delete=models.CASCADE)
     category_description = models.CharField(max_length=100)
 
     def __str__(self):
@@ -27,8 +27,8 @@ class Categories(models.Model):
 
 
 class GroupCategories(models.Model):
-    group_id = models.ForeignKey(Group, on_delete=models.CASCADE)
-    category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
+    group_id = models.ForeignKey(Groups, on_delete=models.CASCADE)
+    category_id = models.ForeignKey(Categories, on_delete=models.CASCADE)
     
     
 class Transactions(models.Model):
@@ -54,7 +54,7 @@ class Budgets(models.Model):
 class UserTransactions(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     transaction_id = models.ForeignKey(Transactions, on_delete=models.CASCADE)
-    category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category_id = models.ForeignKey(Categories, on_delete=models.CASCADE)
     group_id = models.ForeignKey(Groups, on_delete=models.CASCADE)
 
 
