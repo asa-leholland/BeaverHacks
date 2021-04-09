@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Group, Category, Transactions
+from .models import Groups, Categories, Transactions
 
 # Register your models here.
 # Current forms on the admin panel
