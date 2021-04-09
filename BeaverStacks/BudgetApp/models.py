@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Group(models.Model):
-    """ Form to handle main category groupings of the budget"""
+    """ Model to handle main category groupings of the budget"""
     group_id = models.CharField(max_length=100)
     group_description = models.CharField(max_length=100)
 
@@ -11,7 +11,7 @@ class Group(models.Model):
 
 
 class Category(models.Model):
-    """ Form that handles subcategories and maps them back to a main category"""
+    """ Model that handles subcategories and maps them back to a main category"""
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
     category_id = models.CharField(max_length=100)
     category_description = models.CharField(max_length=100)
