@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<div class="container">
+		<div class="dropdown">
+			<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+			  Select a Budget
+			</button>
+			<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+				{% for budget in month_year_combinations %}
+					<li><a class="dropdown-item" href="#"></a>{{ budget }}</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+
+	<br/><br/><br/><br/><br/>
+
+	<form method="POST">{% csrf_token %}
+		<div class='card m-3 p-3'>
+		<h4>Add New Category</h4>
+			<p>All categories will be displayed on the Transactions page.</p>
+			<p>All categories are selectable as Group.</p>
+			<div class="form-inline">
+				<div class="col">
+					<input type="text" class="form-control" placeholder="New Category Name" name="category_description">
+				</div>
+				<div class="col">
+					<input type="submit" class="form-control btn-sm btn-success" value="Add Category" name="create_category">
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<div class="mb-5 mt-5"></div>
+
+	<div class="pt-5">
+		{% for category in categories %}
+			<form method="POST">{% csrf_token %}
+				<div class="row">
+						<div class="col-sm-1"><input type="hidden" value='{{ category.id }}' name='primary_key'></div>
+						<div class="col-md-2"><input type="text" value="{{ category.description }}" name="category_description"></div>
+						<div class="col-md-1"><input type="submit" class="form-control btn-sm btn-danger" value="Update" name="update_category"></div>
+					</div>
+			</form>
+		{% endfor %}
+	</div>
+
+	<div class="mb-5 mt-5"></div>
+
+	<div class="pt-5">
+		{% for category in categories %}
+			<form method="POST">{% csrf_token %}
+				<div class="row">
+					<div class="col-sm-1"><input type="hidden" value='{{ category.id }}' name='primary_key'></div>
+					<div class="col-md-2">{{ category.description }}</div>
+					<div class="col-md-1"><input type="submit" class="form-control btn-sm btn-danger" value="Delete Category" name="delete_category"></div>
+				</div>
+			</form>
+		{% endfor %}
+	</div>
+
+	<div class="mb-5 mt-5"></div>
+
+	<form method="POST">{% csrf_token %}
+		<div class='card m-3 p-3'>
+		<h4>Add New Group</h4>
+			<p>You can group existing categories of transactions together.</p>
+			<div class="form-inline">
+				<div class="col">
+					<input type="text" class="form-control" placeholder="New Group Name" name="group_description">
+				</div>
+				<div class="col">
+					<input type="submit" class="form-control btn-sm btn-success" value="Add Group" name="create_group">
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<div class="pt-5">
+		{% for group in groups %}
+			<form method="POST">{% csrf_token %}
+				<div class="row">
+						<div class="col-sm-1"><input type="hidden" value='{{ group.id }}' name='primary_key'></div>
+						<div class="col-md-2"><input type="text" value="{{ group.description }}" name="group_description"></div>
+						<div class="col-md-1"><input type="submit" class="form-control btn-sm btn-danger" value="Update" name="update_group"></div>
+					</div>
+			</form>
+		{% endfor %}
+	</div>
+
+	<div class="pt-5">
+		{% for group in groups %}
+			<form method="POST">{% csrf_token %}
+				<div class="row">
+					<div class="col-sm-1"><input type="hidden" value='{{ group.id }}' name='primary_key'></div>
+					<div class="col-md-2">{{ group.description }}</div>
+					<div class="col-md-1"><input type="submit" class="form-control btn-sm btn-danger" value="Delete Group" name="delete_group"></div>
+				</div>
+			</form>
+		{% endfor %}
+	</div>
+{% endblock %}

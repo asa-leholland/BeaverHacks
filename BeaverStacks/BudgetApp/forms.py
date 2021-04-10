@@ -7,7 +7,7 @@ class GroupForm(ModelForm):
     class Meta:
         model = Groups
         fields = [
-            'group_description'
+            'description'
         ]
 
 
@@ -16,6 +16,7 @@ class TransactionsForm(ModelForm):
         model = Transactions
         fields = [
             'vendor',
+            'category',
             'date',
             'amount'
         ]
@@ -25,8 +26,7 @@ class CategoryForm(ModelForm):
     class Meta:
         model = Categories
         fields = [
-            'group_id',
-            'category_description'
+            'description'
         ]
 
 
@@ -45,7 +45,9 @@ class BudgetForm(ModelForm):
         fields = [
             'amount',
             'spent',
-            'remaining'
+            'remaining',
+            'year',
+            'month'
         ]
 
 
@@ -66,6 +68,4 @@ class UserBudgetForm(ModelForm):
         fields = [
             'user_id',
             'budget_id',
-            'year',
-            'month'
         ]
