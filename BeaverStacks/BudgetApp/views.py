@@ -17,14 +17,23 @@ def index(request):
     groups = GroupForm()
     categories = CategoryForm()
     budgets = BudgetForm()
+    transactions = Transactions()
 
-
+    if request.method == 'POST':
+        if request.POST.get('transaction_description'):
+            create_transaction(request, transactions)
+        if request.POST.get('category_description'):
+            create_category(request, categories)
+        if request.POST.get('group_description'):
+            create_group(request, groups)
 
     # This Works
     # if request.POST['Category']:
     #     print(request.POST['Category'])
     #     categories = create_category(request, categories)
-    transactions = Transactions.objects.all()
+    transactions = Transactions.objects.all()  # this is a list of all the transactions in the db
+    categories = Categories.objects.all()  # this is a list of all the categories in the db
+    groups = Groups.objects.all()  # this is a list of all the groups in the db
     context = {
         'month_year_combinations': get_month_year_combinations(),
         'budgets': budgets,
@@ -43,16 +52,14 @@ def get_month_year_combinations():
     return budget_list
 
 
-def add_transaction(request):
-    if request.method == 'POST':
-        transaction = Transactions()
-        transaction.name = request.POST.get('name')
-        transaction.vendor = request.POST.get('vendor')
-        transaction.date = request.POST.get('date')
-        transaction.save()
-        return render(request)
-
-    return render(request)
+def create_transaction(request, transactions):
+    transaction = Transactions()
+    transaction.transaction_description = request.POST.get('transaction_description')
+    transaction.vendor = request.POST.get('vendor')
+    transaction.category = request.POST.get('category')
+    transaction.date = request.POST.get('date')
+    transaction.amount = request.POST.get('amount')
+    transaction.save()
 
 
 def update_transaction(request, pk):

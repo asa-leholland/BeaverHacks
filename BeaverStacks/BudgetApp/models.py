@@ -11,9 +11,13 @@ class Groups(models.Model):
     """ Model to handle main category groupings of the budget"""
     group_id = models.AutoField(primary_key=True)
     group_description = models.CharField(max_length=100)
+    budgeted = models.DecimalField(default=0.00, max_digits=16, decimal_places=2)
+    spent = models.DecimalField(default=0.00, max_digits=16, decimal_places=2)
+    remaining = models.DecimalField(default=0.00, max_digits=16, decimal_places=2)
 
-    def __str__(self):
-        return self.group_id
+
+    # def __str__(self):
+    #     return self.group_id
     
     
 class Categories(models.Model):
@@ -33,9 +37,10 @@ class GroupCategories(models.Model):
     
 class Transactions(models.Model):
     transaction_id = models.AutoField(primary_key=True)
-    name = models.CharField(default='', max_length=50)
+    transaction_description = models.CharField(default='', max_length=50)
     vendor = models.CharField(default='', max_length=50)
     date = models.DateField(default=date.today)
+    category = models.CharField(default='', max_length=50)
     amount = models.DecimalField(default=0.00, max_digits=16, decimal_places=2)
     
     # def __str__(self):

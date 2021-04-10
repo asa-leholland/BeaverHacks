@@ -15,7 +15,6 @@ class TransactionsForm(ModelForm):
     class Meta:
         model = Transactions
         fields = [
-            'name',
             'vendor',
             'date',
             'amount',
