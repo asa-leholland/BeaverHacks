@@ -15,7 +15,6 @@ def base(request, *args, **kwargs):
 
 def index(request):
     groups = GroupForm()
-    transactions = TransactionsForm()
     categories = CategoryForm()
     budgets = BudgetForm()
 
@@ -25,7 +24,7 @@ def index(request):
     # if request.POST['Category']:
     #     print(request.POST['Category'])
     #     categories = create_category(request, categories)
-
+    transactions = Transactions.objects.all()
     context = {
         'month_year_combinations': get_month_year_combinations(),
         'budgets': budgets,
@@ -45,13 +44,15 @@ def get_month_year_combinations():
 
 
 def add_transaction(request):
-    form = TransactionsForm()
     if request.method == 'POST':
-        form = TransactionsForm(request.POST)
-        if form.is_valid():
-            form.save()
-    context = {'form': form}
-    return render(request, 'BudgetApp/index.html', context)
+        transaction = Transactions()
+        transaction.name = request.POST.get('name')
+        transaction.vendor = request.POST.get('vendor')
+        transaction.date = request.POST.get('date')
+        transaction.save()
+        return render(request)
+
+    return render(request)
 
 
 def update_transaction(request, pk):

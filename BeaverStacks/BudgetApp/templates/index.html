@@ -263,6 +263,7 @@
 			                                <tr>
 			                                    <th style="display: none;">#</th>
 			                                    <th>Transaction</th>
+												<th>Vendor</th>
 			                                    <th>Date</th>
 			                                    <th>Category</th>
 			                                    <th>Amount</th>
@@ -274,14 +275,16 @@
 			                            	{% for transaction in transactions %}
 			                                <tr>
 			                                    <th scope="row" style="display: none;">{{transaction.transaction_id}}</th>
-			                                    <td class="tabledit-view-mode" style="cursor: pointer;"><span class="tabledit-span">{{transaction.transaction_name}}
-			                                        </span><input class="tabledit-input form-control input-sm" type="text" name="Transaction" value={{transaction.transaction_name}} style="display: none;" disabled=""></td>
-			                                    <td class="tabledit-view-mode" style="cursor: pointer;"><span class="tabledit-span" style="">{{transaction.transaction_date}}
-			                                        </span><input class="tabledit-input form-control input-sm fill" type="date" name="Date" value={{transaction.transaction_date}} style="display: none;" disabled=""></td>
-			                                    <td class="tabledit-view-mode" style="cursor: pointer;"><span class="tabledit-span" style="">{{transaction.transaction_category}}
-			                                        </span><input class="tabledit-input form-control input-sm fill" type="text" name="TCategory" value={{transaction.transaction_category}} style="display: none;" disabled=""></td>
-			                                    <td class="tabledit-view-mode" style="cursor: pointer;"><span class="tabledit-span" style="">{{transaction.transaction_amount}}
-			                                        </span><input class="tabledit-input form-control input-sm fill" type="number" name="TCategory" value={{transaction.transaction_amount}} style="display: none;" disabled=""></td>
+			                                    <td class="tabledit-view-mode" style="cursor: pointer;"><span class="tabledit-span">{{transaction.name}}
+			                                        </span><input class="tabledit-input form-control input-sm" type="text" name="Transaction" value={{transaction.name}} style="display: none;" disabled=""></td>
+												<td class="tabledit-view-mode" style="cursor: pointer;"><span class="tabledit-span">{{transaction.vendor}}
+			                                        </span><input class="tabledit-input form-control input-sm" type="text" name="Transaction" value={{transaction.vendor}} style="display: none;" disabled=""></td>
+			                                    <td class="tabledit-view-mode" style="cursor: pointer;"><span class="tabledit-span" style="">{{transaction.date}}
+			                                        </span><input class="tabledit-input form-control input-sm fill" type="date" name="Date" value={{transaction.date}} style="display: none;" disabled=""></td>
+			                                    <td class="tabledit-view-mode" style="cursor: pointer;"><span class="tabledit-span" style="">{{transaction.category}}
+			                                        </span><input class="tabledit-input form-control input-sm fill" type="text" name="Category" value={{transaction.category}} style="display: none;" disabled=""></td>
+			                                    <td class="tabledit-view-mode" style="cursor: pointer;"><span class="tabledit-span" style="">{{transaction.amount}}
+			                                        </span><input class="tabledit-input form-control input-sm fill" type="number" name="Amount" value={{transaction.amount}} style="display: none;" disabled=""></td>
 			                                       <td><button type="submit" class="btn-sm btn-primary">Update<i class="fas fa-edit"></i></button>
 		            <button type="button" class="btn-sm btn-danger">Delete<i class="far fa-trash-alt"></i></button></td>
 
@@ -321,15 +324,15 @@
 			</div>
 
 							<div style="display: flex;">
-					<form method="POST">
+					<form method="POST">{% csrf_token %}
 									<div class='card m-3 p-3'>
 									<h4>Add new transaction</h4>
 								  <div class="form-inline">
 									  	<div class="col p-2">
-									      <input type="text" class="form-control" placeholder="New Transaction Name">
+									      <input type="text" class="form-control" placeholder="New Transaction Name" name="name">
 									    </div>
 									    <div class="col p-2">
-									      <input type="date" class="form-control" >
+									      <input type="date" class="form-control" name="date">
 									    </div>
 								 <label class="mr-sm-2" for="inlineFormCustomSelect">Select a Category</label>
 										   <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
@@ -339,10 +342,10 @@
 										        <option value="3">Three</option>
 										   </select>
 								  	<div class="col p-2">
-								      <input type="text" class="form-control" placeholder="New Amount">
+								      <input type="text" class="form-control" placeholder="New Amount" name="amount">
 								    </div>
 								    <div class="col p-2">
-								      <input type="submit" class="form-control btn-sm btn-success" value="Add Transaction">
+								      <input type="submit" class="form-control btn-sm btn-success" value="Add Transaction" name="add_transaction">
 								    </div>
 								  </div>
 								  </div>

@@ -33,12 +33,13 @@ class GroupCategories(models.Model):
     
 class Transactions(models.Model):
     transaction_id = models.AutoField(primary_key=True)
+    name = models.CharField(default='', max_length=50)
     vendor = models.CharField(default='', max_length=50)
     date = models.DateField(default=date.today)
     amount = models.DecimalField(default=0.00, max_digits=16, decimal_places=2)
     
-    def __str__(self):
-        return self.transaction_id
+    # def __str__(self):
+    #     return self.transaction_id
 
 
 class Budgets(models.Model):
@@ -49,8 +50,8 @@ class Budgets(models.Model):
     year = models.DateTimeField(default=timezone.now().year)
     month = models.DateField(default=timezone.now().month)
 
-    def __str__(self):
-        return self.budget_id
+    # def __str__(self):
+    #     return self.budget_id
 
 
 class UserTransactions(models.Model):
