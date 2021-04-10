@@ -18,17 +18,22 @@ def base(request):
 def index(request):
     current_year = timezone.now().year
     current_month = timezone.now().month
+
+    # Populate Objects by month / year
+
     categories = Categories()
     groups = Groups()
     transactions = Transactions()
-    # budgets = Budgets()
+    budgets = Budgets()
 
     if request.method == 'POST':
+        if request.POST.get('create_budget'):
+            create_budget(request, budgets)
         if request.POST.get('create_category'):
             create_category(request, categories)
         if request.POST.get('create_group'):
             create_group(request, groups)
-        if request.POST.get('transaction_description'):  #  Change transaction_description to create_transaction
+        if request.POST.get('create_transaction'):
             create_transaction(request, transactions)
         if request.POST.get('update_category'):
             update_category(request, request.POST.get('primary_key'))
