@@ -173,8 +173,8 @@
 													<tr>
 														<th scope="row" style="display: none;">{{transaction.transaction_id}}</th>
 														<td class="tabledit-view-mode" style="cursor: pointer;">
-															<span class="tabledit-span">{{transaction.transaction_description}}</span>
-															<input class="tabledit-input form-control input-sm" type="text" name="Description" value={{transaction.transaction_description}} style="display: none;" disabled="">
+															<span class="tabledit-span">{{transaction.description}}</span>
+															<input class="tabledit-input form-control input-sm" type="text" name="Description" value={{transaction.description}} style="display: none;" disabled="">
 														</td>
 														<td class="tabledit-view-mode" style="cursor: pointer;">
 															<span class="tabledit-span">{{transaction.vendor}}</span>
@@ -207,28 +207,31 @@
 					</div>
 				</div>
 				<div style="display: flex;">
-					<form method="POST">
+					<form method="POST">{% csrf_token %}
 						<div class='card m-3 p-3'>
 							<h4>Add new transaction</h4>
 							<div class="form-inline">
 								<div class="col p-2">
-									<input type="text" class="form-control" placeholder="New Transaction Name">
+									<input type="text" class="form-control" placeholder="New Transaction Name" name="transaction_description">
 								</div>
 								<div class="col p-2">
-									<input type="date" class="form-control" >
+									<input type="text" class="form-control" name="transaction_vendor" placeholder="Vendor">
+								</div>
+								<div class="col p-2">
+									<input type="date" class="form-control" name="transaction_date">
 								</div>
 								<label class="mr-sm-2" for="inlineFormCustomSelect">Select a Category</label>
-								<select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+								<select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="transaction_category">
 									<option selected>Choose...</option>
 									<option value="1">One</option>
 									<option value="2">Two</option>
 									<option value="3">Three</option>
 								</select>
 								<div class="col p-2">
-									<input type="text" class="form-control" placeholder="New Amount">
+									<input type="text" class="form-control" placeholder="Amount" name="transaction_amount">
 								</div>
 								<div class="col p-2">
-									<input type="submit" class="form-control btn-sm btn-success" value="Add Transaction">
+									<input type="submit" class="form-control btn-sm btn-success" value="Add Transaction" name="create_transaction">
 								</div>
 							</div>
 						</div>
