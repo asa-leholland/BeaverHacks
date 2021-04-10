@@ -10,6 +10,9 @@ from datetime import date
 class Groups(models.Model):
     """ Model to handle main category groupings of the budget"""
     description = models.CharField(max_length=100)
+    budgeted = models.DecimalField(default=0.00, max_digits=16, decimal_places=2)
+    spent = models.DecimalField(default=0.00, max_digits=16, decimal_places=2)
+    remaining = models.DecimalField(default=0.00, max_digits=16, decimal_places=2)
     
     
 class Categories(models.Model):
@@ -23,6 +26,7 @@ class GroupCategories(models.Model):
     
     
 class Transactions(models.Model):
+    description = models.CharField(default='', max_length=50)
     vendor = models.CharField(default='', max_length=50)
     category = models.CharField(default='', max_length=50)
     date = models.DateField(default=date.today)

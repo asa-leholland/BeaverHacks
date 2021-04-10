@@ -20,7 +20,7 @@ def index(request):
     current_month = timezone.now().month
     categories = Categories()
     groups = Groups()
-    # transactions = Transactions()
+    transactions = Transactions()
     # budgets = Budgets()
 
     if request.method == 'POST':
@@ -28,6 +28,8 @@ def index(request):
             create_category(request, categories)
         if request.POST.get('create_group'):
             create_group(request, groups)
+        if request.POST.get('transaction_description'):  #  Change transaction_description to create_transaction
+            create_transaction(request, transactions)
         if request.POST.get('update_category'):
             update_category(request, request.POST.get('primary_key'))
         if request.POST.get('update_group'):
@@ -37,10 +39,11 @@ def index(request):
         if request.POST.get('delete_group'):
             delete_group(request, request.POST.get('primary_key'))
 
-    groups = Groups.objects.all()
-    categories = Categories.objects.all()
-    transactions = Transactions.objects.all()
+    # this is a list of all the objects in the db
     budgets = Budgets.objects.all()
+    transactions = Transactions.objects.all()
+    categories = Categories.objects.all()
+    groups = Groups.objects.all()
 
     context = {
         'month_year_combinations': get_month_year_combinations(),

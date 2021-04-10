@@ -7,7 +7,10 @@ class GroupForm(ModelForm):
     class Meta:
         model = Groups
         fields = [
-            'description'
+            'description',
+            'budgeted',
+            'spent',
+            'remaining'
         ]
 
 
@@ -18,7 +21,8 @@ class TransactionsForm(ModelForm):
             'vendor',
             'category',
             'date',
-            'amount'
+            'amount',
+
         ]
 
 
