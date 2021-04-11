@@ -35,6 +35,12 @@ class Transactions(models.Model):
     date = models.DateField(default=date.today)
     amount = models.DecimalField(default=0.00, max_digits=16, decimal_places=2)
 
+    def get_category(self):
+        return self.category
+
+    def get_amount(self):
+        return self.amount
+
 
 class Budgets(models.Model):
     amount = models.DecimalField(default=0.00, max_digits=16, decimal_places=2)
