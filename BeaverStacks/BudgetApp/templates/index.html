@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-	<div>
+	<div class="m-4 mt-0">
 
 <!--		<div class="dropdown">
 			<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -20,11 +20,12 @@
 				<button class="nav-link active" id="budget-tab" data-bs-toggle="tab" data-bs-target="#budget" type="button" role="tab" aria-controls="budget" aria-selected="true">Budget</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="transactions-tab" data-bs-toggle="tab" data-bs-target="#transactions" type="button" role="tab" aria-controls="transactions" aria-selected="false">Transactions</button>
+				<button class="nav-link" id="categories-tab" data-bs-toggle="tab" data-bs-target="#categories" type="button" role="tab" aria-controls="categories" aria-selected="false">Categories</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="stats-tab" data-bs-toggle="tab" data-bs-target="#stats" type="button" role="tab" aria-controls="stats" aria-selected="false">Stats</button>
+				<button class="nav-link" id="transactions-tab" data-bs-toggle="tab" data-bs-target="#transactions" type="button" role="tab" aria-controls="transactions" aria-selected="false">Transactions</button>
 			</li>
+
 		</ul>
 
 
@@ -67,6 +68,11 @@
 														<label class="col-sm-6 col-form-label"  for="budget_remaining">Total Amount Remaining: </label>
 														<input type="text" class="form-control" name="budget_remaining" id="budget_remaining" value="{{budget.remaining}}" readonly/>
 													</div>
+												</div>
+											</div>
+											<div class="col-sm">
+												<div>
+													<button class="btn"><i class="fa fa-download"></i> Export Graph</button>
 												</div>
 											</div>
 										</div>
@@ -115,30 +121,16 @@
 							<div class="card">
 								<div class="card-body">
 									<div class="row">
-										<form method="POST">{% csrf_token %}
-											<h4>Add a New Group</h4>
-											<p>You can group existing categories of transactions together.</p>
-											<div class="col-sm">
-												<div class="form-inline">
-													<div class="col p1">
-														<input type="text" class="form-control" placeholder="New Group Name" name="group_description">
-													</div>
+										<form method="POST" class="form-inline">{% csrf_token %}
+											<div class="form-group">
+												<div class="input-group">
+													<label class="col-sm col-form-label"  for="group_description">Add a new Group of transaction categories: </label>
+													<input type="text" class="form-control" placeholder="New Group Name" id="group_description" name="group_description">
+													<input type="number" class="form-control" placeholder="Amount to Budget">
+													<span class="input-group-addon"><input type="submit" class="form-control btn btn-success" value="Add" name="create_group"></span>
 												</div>
 											</div>
-											<div class="col-sm">
-												<div class="form-inline">
-													<div class="col-md-12 form-group">
-														<input type="text" class="form-control" placeholder="Amount to Budget">
-													</div>
-												</div>
-											</div>
-											<div class="col-sm">
-												<div class="form-inline">
-													<div class="col-md-12 form-group">
-														<input type="submit" class="form-control btn-sm btn-success" value="Add Group" name="create_group">
-													</div>
-												</div>
-											</div>
+
 										</form>
 									</div>
 								</div>
@@ -146,7 +138,41 @@
 						</div>
 					</div>
 				</div>
+
+<!--				List of Current Groups: not sure if this is important - Asa -->
+				<div class="pt-5">
+					{% for group in groups %}
+						<form method="POST">{% csrf_token %}
+							<div class="row">
+								<div class="col-sm-1"><input type="hidden" value='{{ group.id }}' name='primary_key'></div>
+								<div class="col-md-2"><input type="text" value="{{ group.description }}" name="group_description"></div>
+								<div class="col-md-1"><input type="submit" class="form-control btn-sm btn-danger" value="Update" name="update_group"></div>
+								<div class="col-md-1"><input type="submit" class="form-control btn-sm btn-danger" value="Delete Group" name="delete_group"></div>
+							</div>
+						</form>
+					{% endfor %}
+				</div>
 			</div>
+
+			<!-- Categories Tab -->
+			<div class="tab-pane" id="categories" role="tabpanel" aria-labelledby="categories-tab">
+				<div class='p5 m5'><h1 >Categories</h1></div>
+
+				<!-- List of Current Categories-->
+						<div class="pt-5">
+							{% for category in categories %}
+								<form method="POST">{% csrf_token %}
+									<div class="row">
+											<div class="col-sm-1"><input type="hidden" value='{{ category.id }}' name='primary_key'></div>
+											<div class="col-md-2"><input type="text" value="{{ category.description }}" name="category_description"></div>
+											<div class="col-md-1"><input type="submit" class="form-control btn-sm btn-danger" value="Update" name="update_category"></div>
+											<div class="col-md-1"><input type="submit" class="form-control btn-sm btn-danger" value="Delete Category" name="delete_category"></div>
+										</div>
+								</form>
+							{% endfor %}
+						</div>
+			</div>
+
 			<div class="tab-pane" id="transactions" role="tabpanel" aria-labelledby="transactions-tab">
 				<!-- Overall Content for Transactions Tab -->
 				<div class='p5 m5'><h1 >Transactions</h1></div>
@@ -273,39 +299,14 @@
 							</div>
 						</div>
 					</form>
+
+
 				</div>
 				<div class='w-50'></div>
-			</div>
-			<div class="tab-pane" id="stats" role="tabpanel" aria-labelledby="stats-tab">
-				<div class='p5 m5'><h1 >Stats</h1></div>
+
+
 			</div>
 		</div>
-	</div>
-
-	<div class="pt-5">
-		{% for category in categories %}
-			<form method="POST">{% csrf_token %}
-				<div class="row">
-						<div class="col-sm-1"><input type="hidden" value='{{ category.id }}' name='primary_key'></div>
-						<div class="col-md-2"><input type="text" value="{{ category.description }}" name="category_description"></div>
-						<div class="col-md-1"><input type="submit" class="form-control btn-sm btn-danger" value="Update" name="update_category"></div>
-						<div class="col-md-1"><input type="submit" class="form-control btn-sm btn-danger" value="Delete Category" name="delete_category"></div>
-					</div>
-			</form>
-		{% endfor %}
-	</div>
-
-	<div class="pt-5">
-		{% for group in groups %}
-			<form method="POST">{% csrf_token %}
-				<div class="row">
-					<div class="col-sm-1"><input type="hidden" value='{{ group.id }}' name='primary_key'></div>
-					<div class="col-md-2"><input type="text" value="{{ group.description }}" name="group_description"></div>
-					<div class="col-md-1"><input type="submit" class="form-control btn-sm btn-danger" value="Update" name="update_group"></div>
-					<div class="col-md-1"><input type="submit" class="form-control btn-sm btn-danger" value="Delete Group" name="delete_group"></div>
-				</div>
-			</form>
-		{% endfor %}
 	</div>
 
 {% endblock %}
