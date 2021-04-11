@@ -194,7 +194,11 @@
 										<form method="POST">{% csrf_token %}
 											<tr>
 												<td><input type="text" class="form-control" placeholder="New Category Name" name="category_description"></td>
-												<td colspan="2"><input type="submit" class="form-control btn-sm btn-success" value="Add Category" name="create_category"></td>
+												<td colspan="2">
+													<button type="submit" class="form-control btn-sm btn-success" value="Add Category" 
+													name="create_category">Add Category <i class="fa fa-plus"></i>
+													</button>
+												</td>
 											</tr>
 										</form>
 
@@ -205,8 +209,16 @@
 												<tr>
 													<td style="display: none; width : 2px"><input type="hidden" value='{{ category.id }}' name="primary_key"></td>
 													<td><input type="text" class="form-control" value='{{ category.description }}' name="category_description"></td>
-													<td><input type="submit" class="form-control btn-sm btn-primary" value="Update" name="update_category"></td>
-													<td><input type="submit" class="form-control btn-sm btn-danger" value="Delete Category" name="delete_category"></td>
+													<td>
+														<button type="submit" class="form-control btn-sm btn-primary" value="Update" 
+														name="update_category">Update <i class="fa fa-edit"></i>
+														</button>
+													</td>
+													<td>
+														<button type="submit" class="form-control btn-sm btn-danger" value="Delete Category" 
+														name="delete_category">Delete Category <i class="fa fa-trash"></i>
+														</button>
+													</td>
 												</tr>
 											</form>
 										{% endfor %}
