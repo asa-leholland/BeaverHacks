@@ -8,3 +8,4 @@ BeaverStacks/BudgetApp/__pycache__/forms.cpython-38.pyc
 BeaverStacks/BudgetApp/__pycache__/models.cpython-38.pyc
 BeaverStacks/BudgetApp/migrations/__pycache__/__init__.cpython-38.pyc
 *.pyc
+*.pyc
