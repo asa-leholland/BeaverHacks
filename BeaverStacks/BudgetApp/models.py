@@ -18,6 +18,9 @@ class Groups(models.Model):
 class Categories(models.Model):
     """ Model that handles subcategories and maps them back to a main category"""
     description = models.CharField(max_length=100)
+    budgeted = models.DecimalField(default=0.00, max_digits=16, decimal_places=2)
+    spent = models.DecimalField(default=0.00, max_digits=16, decimal_places=2)
+    remaining = models.DecimalField(default=0.00, max_digits=16, decimal_places=2)
 
 
 class GroupCategories(models.Model):
@@ -31,6 +34,12 @@ class Transactions(models.Model):
     category = models.CharField(default='', max_length=50)
     date = models.DateField(default=date.today)
     amount = models.DecimalField(default=0.00, max_digits=16, decimal_places=2)
+
+    def get_category(self):
+        return self.category
+
+    def get_amount(self):
+        return self.amount
 
 
 class Budgets(models.Model):
