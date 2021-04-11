@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Groups, Transactions, Categories, GroupCategories, Budgets, UserTransactions, UserBudget
+from .models import Groups, Transactions, Categories, GroupTransactions, Budgets, UserTransactions, UserBudget
 
 
 # This file will be used to create forms for HTML embedding of the data
@@ -36,7 +36,7 @@ class CategoryForm(ModelForm):
 
 class GroupCategoryForm(ModelForm):
     class Meta:
-        model = GroupCategories
+        model = GroupTransactions
         fields = [
             'group_id',
             'category_id'

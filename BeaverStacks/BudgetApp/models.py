@@ -22,7 +22,7 @@ class Categories(models.Model):
 
 class GroupCategories(models.Model):
     group_id = models.ForeignKey(Groups, on_delete=models.CASCADE)
-    category_id = models.ForeignKey(Categories, on_delete=models.CASCADE)
+    category_id = models.ForeignKey(Categories, on_delete=models.CASCADE, null=True)
     
     
 class Transactions(models.Model):
@@ -37,8 +37,8 @@ class Budgets(models.Model):
     amount = models.DecimalField(default=0.00, max_digits=16, decimal_places=2)
     spent = models.DecimalField(default=0.00, max_digits=16, decimal_places=2)
     remaining = models.DecimalField(default=0.00, max_digits=16, decimal_places=2)
-    year = models.DateTimeField(default=timezone.now().year)
-    month = models.DateField(default=timezone.now().month)
+    year = models.DateField(default=date.today)
+    month = models.DateField(default=date.today)
 
 
 class UserTransactions(models.Model):
