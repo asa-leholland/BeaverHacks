@@ -1,9 +1,16 @@
+html {
+    height: 100%;
+}
+
 body {
+    min-height: 100%;
     font-family: Tahoma;
     background: #fc4a1a;
     background: -webkit-linear-gradient(to bottom right, #3FE5E5, #0B274D);
     background: linear-gradient(to bottom right, #3FE5E5, #0B274D)
 }
+
+
 
 
 #main_navbar {
