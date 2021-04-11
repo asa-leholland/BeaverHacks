@@ -10,7 +10,6 @@ from .forms import *
 import datetime
 import re
 import plotly.express as px
-import plotly.graph_objects as go
 import pandas as pd
 
 
@@ -84,7 +83,7 @@ def index(request):
         'budget': budget,
         'transactions': transactions,
         'categories': categories,
-        'groups': groups
+        'groups': groups,
     }
     return render(request, 'index.html', context)
 

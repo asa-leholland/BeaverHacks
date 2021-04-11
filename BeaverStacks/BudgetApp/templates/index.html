@@ -73,7 +73,11 @@
 											<div class="col-sm">
 												<div>
 													<form method="POST">{% csrf_token %}
-														<button type="submit" class="btn form-control" name="create_pie_plot"><i class="fa fa-download"></i> Export Graph</button>
+														<input type="submit" value="Export Transaction Plot" class="btn form-control" name="create_pie_plot">
+<!--														<i class="fa fa-download"></i> Export Graph</input>-->
+														{% if graph %}
+														{{ graph }}
+														{% endif %}
 													</form>
 												</div>
 											</div>
