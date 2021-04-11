@@ -70,10 +70,24 @@
 													</div>
 												</div>
 											</div>
-											<div class="col-sm">
-												<div>
-													<button class="btn"><i class="fa fa-download"></i> Export Graph</button>
-												</div>
+											<div class="col-2">
+												<span class='align-middle'>
+													<form method="POST">{% csrf_token %}
+														<div class="row">
+																<div class="col">
+																	<div class="right-inner-addon">
+																		
+																		<button type="submit" class="btn-primary form-control" value="Update Plot" name="create_pie_plot"><i class="fa fa-external-link"></i> Generate Categories Pie Chart</button>
+																	</div>
+																{% if graph %}
+																{{ graph|safe }}
+																{% else %}
+																<!-- <p>No graph was provided.</p> -->
+																{% endif %}
+																</div>
+															</div>
+													</form>
+												</span>
 											</div>
 										</div>
 									</div>
@@ -152,6 +166,8 @@
 						</form>
 					{% endfor %}
 				</div>
+
+
 			</div>
 
 			<!-- Categories Tab -->
@@ -254,6 +270,7 @@
 					</div>
 				</div>
 				<div style="display: flex;">
+
 <!--					<form method="POST">{% csrf_token %}-->
 <!--						<div class='card m-3 p-3'>-->
 <!--							<h4>Add new transaction</h4>-->
@@ -283,6 +300,7 @@
 <!--							</div>-->
 <!--						</div>-->
 <!--					</form>-->
+
 					<!-- New Category Form -->
 					<form method="POST">{% csrf_token %}
 						<div class='card m-3 p-3'>
@@ -303,6 +321,16 @@
 
 				</div>
 				<div class='w-50'></div>
+			</div>
+			<div class="tab-pane" id="stats" role="tabpanel" aria-labelledby="stats-tab">
+				<div class='p5 m5'><h1 >Stats</h1></div>
+					
+
+	</div>
+			</div>
+		</div>
+	</div>
+
 
 
 			</div>
