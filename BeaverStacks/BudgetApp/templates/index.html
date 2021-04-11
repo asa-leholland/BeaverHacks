@@ -79,45 +79,53 @@
 									</div>
 								</div>
 							</div>
-							<table class="table">
-								<thead>
-									<tr>
-										<th scope="col">Group</th>
-										<th scope="col">Transaction Category</th>
-										<th scope="col">Amount Budgeted</th>
-										<th scope="col">Amount Spent</th>
-										<th scope="col">Amount Remaining</th>
-									</tr>
-								</thead>
-								<tbody>
-									{% for group in groups %}
-										<tr>
-											<th scope="row" style="display: none;">{group.description}}</th>
-											<td class="tabledit-view-mode" style="cursor: pointer;">
-												<span class="tabledit-span">{{group.description}}</span>
-												<input class="tabledit-input form-control input-sm" type="text" name="description" value={{group.description}} style="display: none;" disabled="">
-											</td>
-											<td>Water, Electric</td>
-											<td class="tabledit-view-mode" style="cursor: pointer;">
-												<span class="tabledit-span">{{group.budgeted}}</span>
-												<input class="tabledit-input form-control input-sm" type="text" name="budgeted" value={{group.budgeted}} style="display: none;" disabled="">
-											</td>
-											<td class="tabledit-view-mode" style="cursor: pointer;">
-												<span class="tabledit-span">{{group.spent}}</span>
-												<input class="tabledit-input form-control input-sm" type="text" name="spent" value={{group.spent}} style="display: none;" disabled="">
-											</td>
-											<td class="tabledit-view-mode" style="cursor: pointer;">
-												<span class="tabledit-span">{{group.remaining}}</span>
-												<input class="tabledit-input form-control input-sm" type="text" name="remaining" value={{group.remaining}} style="display: none;" disabled="">
-											</td>
-											<td>
-												<button type="submit" class="btn-sm btn-primary">Update<i class="fas fa-edit"></i></button>
-												<button type="submit" class="btn-sm btn-danger">Delete<i class="far fa-trash-alt"></i></button>
-											</td>
-										</tr>
-									{% endfor %}
-								</tbody>
-							</table>
+														{% for group in groups %}
+									<script type="text/javascript" src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1567487539/jquery.tabledit.js"></script>
+									<div class="mt-100">
+										<div class="row">
+											<div class="col-md-12">
+												<div class="card">
+													<div class="card-header">
+														<h5>{{ group.description }}</h5>
+														<div class="card-block">
+															<div class="table-responsive">
+																<table class="table">
+																	<thead>
+																		<tr>
+																			<th style="display: none; width : 2px">#</th>
+																			<th scope="col">Transaction Category</th>
+																			<th scope="col">Amount Budgeted</th>
+																			<th scope="col">Amount Spent</th>
+																			<th scope="col">Amount Remaining</th>
+																		</tr>
+																	</thead>
+																	<tbody>
+																		{% for category in categories %}
+																			{% if group.id == group_category.group_id %}
+																				{% if category.id == group_category_id %}
+																					 <form method="POST">{% csrf_token %}
+																						<tr>
+																							<td style="display: none; width : 2px"><input type="hidden" value='{{ category.id }}' name="primary_key"></td>
+																							<td><input type="text" class="form-control" value='{{ category.budgeted }}' name="category_description"></td>
+																							<td><input type="text" class="form-control" value='{{ category.spent }}' name="category_spent"></td>
+																							<td><input type="date" class="form-control" value='{{ category.remaining }}' name="category_remaining"></td>
+																							<td><input type="submit" class="form-control btn-sm btn-primary" value="Update" name="update_category"></td>
+																							<td><input type="submit" class="form-control btn-sm btn-danger" value="Delete" name="delete_category"></td>
+																						</tr>
+																					</form>
+																				{% endif %}
+																			{% endif %}
+																		{% endfor %}
+																	</tbody>
+																</table>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+							{% endfor %}
 							<div class="card">
 								<div class="card-body">
 									<div class="row">
