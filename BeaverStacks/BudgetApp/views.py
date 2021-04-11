@@ -4,12 +4,14 @@
 """
 import re
 
-from .models import Categories, Groups, Budgets, Transactions
+from .models import Categories, Groups, Budgets, Transactions, GroupCategories
 from django.utils import timezone
 from django.shortcuts import render
 from .forms import *
 import plotly.express as px
 import pandas as pd
+import datetime
+
 
 
 # Create your views here.
@@ -19,42 +21,68 @@ def base(request):
 
 def index(request):
     current_year = timezone.now().year
-    current_month = timezone.now().month
+    current_month_num = timezone.now().month
+    current_month_name = datetime.date.today()
+    current_month = current_month_name.strftime("%B")
+    print(current_month_num)
+    # Populate Objects by month / year
+
     categories = Categories()
     groups = Groups()
     transactions = Transactions()
     budgets = Budgets()
 
+
     getting_transaction_data()
     manipulating_transaction_data()
+
+    group_transactions = GroupCategories()
+
 
     if request.method == 'POST':
         if request.POST.get('create_budget'):
             create_budget(request, budgets)
+
         if request.POST.get('create_category'):
             create_category(request, categories)
+
         if request.POST.get('create_group'):
             create_group(request, groups)
+
+        if request.POST.get('create_transaction'):
+            create_transaction(request, transactions)
+
         if request.POST.get('update_category'):
             update_category(request, request.POST.get('primary_key'))
+
         if request.POST.get('update_group'):
             update_group(request, request.POST.get('primary_key'))
+
+        if request.POST.get('update_transaction'):
+            update_transaction(request, request.POST.get('primary_key'))
+
         if request.POST.get('delete_category'):
             delete_category(request, request.POST.get('primary_key'))
+
         if request.POST.get('delete_group'):
             delete_group(request, request.POST.get('primary_key'))
         if request.POST.get('create_pie_plot'):
             create_pie_plot(request)
 
+        if request.POST.get('delete_transaction'):
+            delete_transaction(request, request.POST.get('primary_key'))
+
     # this is a list of all the objects in the db
-    budgets = Budgets.objects.all()
+    budget = get_budget_by_month_year(current_month_num, current_year)
     transactions = Transactions.objects.all()
     categories = Categories.objects.all()
     groups = Groups.objects.all()
 
     context = {
-        'month_year_combinations': get_month_year_combinations(),
-        'budgets': budgets,
+        # 'month_year_combinations': get_month_year_combinations(),
+        'month': current_month,
+        'year': current_year,
+        'budget': budget,
         'transactions': transactions,
         'categories': categories,
         'groups': groups
@@ -77,10 +105,10 @@ def create_group(request, groups):
 def create_budget(request, budgets):
     """ Creates a new Budget """
     budgets.amount = request.POST.get('budget_amount')
-    budgets.spent = request.POST.get('budget_spent')
-    budgets.remaining = request.POST.get('budget_remaining')
-    budgets.year = request.POST.get('budget_year')
-    budgets.month = request.POST.get('budget_month')
+    budgets.spent = request.POST.get('budget_amount')
+    budgets.remaining = request.POST.get('budget_amount')
+    budgets.year = datetime.date.today()
+    budgets.month = datetime.date.today()
     budgets.save()
 
 
@@ -137,6 +165,13 @@ def update_group(request, pk):
         group.save()
 
 
+def update_budget(request, pk):
+    """ Updates a Budget - needs a primary key"""
+    budget = Budgets.objects.get(id=pk)
+    if request.method == 'POST':
+        create_budget(request, budget)
+
+
 def update_transaction(request, pk):
     transaction = Transactions.objects.get(id=pk)
     if request.method == 'POST':
@@ -149,6 +184,7 @@ def get_month_year_combinations():
     # for budget_item in form:
     #     budget_list.append(str(budget_item.month) + str(budget_item.year))
     return budget_list
+
 
 
 def getting_transaction_data():
@@ -197,4 +233,34 @@ def create_pie_plot(request):
     fig.show()
     graph = fig.to_html(full_html=False, default_height=500, default_width=700)
     return graph
+
+
+def get_budget_by_month_year(month, year):
+    budgets = Budgets.objects.all()
+    for budget in budgets:
+        if budget.year.year == year and budget.month.month == month:
+            return budget
+
+
+# def buget_exists():
+#     budgets = Budgets.objects.all()
+#     for budget in budgets:
+#         print(month)
+#         if budget.year.year == year and budget.month.month == month:
+#             print(budget)
+#             return budget
+
+
+def get_transaction_sum_by_month_year(month, year):
+    transactions = Transactions.objects.all()
+    total_spent = 0
+
+    for transaction in transactions:
+        if transaction.date.strftime("%M") == month and transaction.date.strftime("%Y") == year:
+            total_spent += transaction.amount
+    return total_spent
+
+
+def update_groups_budget(group, amount):
+    group.spent += amount
 
