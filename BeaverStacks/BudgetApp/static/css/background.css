@@ -1,5 +1,10 @@
 body {
     background: #fc4a1a;
-    background: -webkit-linear-gradient(to bottom right, #BCECF9, #4B9983);
-    background: linear-gradient(to bottom right, #BCECF9, #4B9983)
+    background: -webkit-linear-gradient(to bottom right, #3FE5E5, #0B274D);
+    background: linear-gradient(to bottom right, #3FE5E5, #0B274D)
+}
+
+
+#main_navbar {
+    background: #0B274D;
 }
