@@ -8,7 +8,6 @@ from django.utils import timezone
 from django.shortcuts import render
 from .forms import *
 import datetime
-from decimal import Decimal
 import re
 import plotly.express as px
 import pandas as pd
@@ -96,8 +95,6 @@ def create_category(request, categories):
     """ Creates a new Category """
     categories.description = request.POST.get('category_description')
     categories.budgeted = request.POST.get('category_budgeted')
-    categories.spent = 0
-    categories.remaining = categories.budgeted
     categories.save()
 
     group = get_group(request.POST.get('category_group'))
@@ -118,7 +115,6 @@ def create_group(request, groups):
     groups.description = request.POST.get('group_description')
     groups.save()
 
-
 def create_budget(request, budgets):
     """ Creates a new Budget """
     budgets.amount = request.POST.get('budget_amount')
@@ -137,10 +133,6 @@ def create_transaction(request, transactions):
     transactions.date = request.POST.get('transaction_date')
     transactions.amount = request.POST.get('transaction_amount')
     transactions.save()
-
-    category = get_category(request.POST.get('transaction_category'))
-    amount = transactions.amount
-    update_categories_budget(category, amount)
 
 
 def delete_category(request, pk):
@@ -194,14 +186,7 @@ def update_budget(request, pk):
 
 
 def update_transaction(request, pk):
-
     transaction = Transactions.objects.get(id=pk)
-
-    # these three lines remove the existing amount before updating
-    category = get_category(request.POST.get('transaction_category'))
-    amount = transaction.amount
-    update_categories_budget(category, -amount)
-
     if request.method == 'POST':
         create_transaction(request, transaction)
 
@@ -240,22 +225,14 @@ def get_transaction_sum_by_month_year(month, year):
     return total_spent
 
 
-def update_categories_budget(category, amount):
-    category.spent += Decimal(amount)
-    category.remaining -= Decimal(amount)
-    category.save()
+def update_groups_budget(group, amount):
+    group.spent += amount
 
 
 def get_group(description):
     for group in Groups.objects.all():
         if group.description == description:
             return group
-
-
-def get_category(description):
-    for category in Categories.objects.all():
-        if category.description == description:
-            return category
 
           
 def getting_transaction_data():
@@ -304,3 +281,4 @@ def create_pie_plot_transaction_data(request):
     fig.show()
     graph = fig.to_html(full_html=False, default_height=500, default_width=700)
     return graph
+
