@@ -30,7 +30,7 @@ def index(request):
     groups = Groups()
     transactions = Transactions()
     budgets = Budgets()
-    group_transactions = GroupCategories()
+
 
     getting_transaction_data()
     manipulating_transaction_data()
@@ -75,6 +75,7 @@ def index(request):
     transactions = Transactions.objects.all()
     categories = Categories.objects.all()
     groups = Groups.objects.all()
+    group_categories = GroupCategories.objects.all()
 
     context = {
         # 'month_year_combinations': get_month_year_combinations(),
@@ -84,6 +85,8 @@ def index(request):
         'transactions': transactions,
         'categories': categories,
         'groups': groups,
+        'group_categories': group_categories
+
     }
     return render(request, 'index.html', context)
 
@@ -91,14 +94,26 @@ def index(request):
 def create_category(request, categories):
     """ Creates a new Category """
     categories.description = request.POST.get('category_description')
+    categories.budgeted = request.POST.get('category_budgeted')
     categories.save()
+
+    group = get_group(request.POST.get('category_group'))
+    print(group.id)
+    create_group_category(group, categories)
+
+
+def create_group_category(group, category):  # group and category need to be objects
+    print(group.id)
+    group_category = GroupCategories()
+    group_category.group_id = group
+    group_category.category_id = category
+    group_category.save()
 
 
 def create_group(request, groups):
     """ Creates a new Group """
     groups.description = request.POST.get('group_description')
     groups.save()
-
 
 def create_budget(request, budgets):
     """ Creates a new Budget """
@@ -214,6 +229,12 @@ def update_groups_budget(group, amount):
     group.spent += amount
 
 
+def get_group(description):
+    for group in Groups.objects.all():
+        if group.description == description:
+            return group
+
+          
 def getting_transaction_data():
     print('function called')
     transactions = Transactions.objects.all()
@@ -260,3 +281,4 @@ def create_pie_plot_transaction_data(request):
     fig.show()
     graph = fig.to_html(full_html=False, default_height=500, default_width=700)
     return graph
+
