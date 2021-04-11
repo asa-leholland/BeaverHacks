@@ -170,34 +170,29 @@
 											</thead>
 											<tbody>
 												{% for transaction in transactions %}
-													<tr>
-														<th scope="row" style="display: none;">{{transaction.transaction_id}}</th>
-														<td class="tabledit-view-mode" style="cursor: pointer;">
-															<span class="tabledit-span">{{transaction.transaction_description}}</span>
-															<input class="tabledit-input form-control input-sm" type="text" name="Description" value={{transaction.transaction_description}} style="display: none;" disabled="">
-														</td>
-														<td class="tabledit-view-mode" style="cursor: pointer;">
-															<span class="tabledit-span">{{transaction.vendor}}</span>
-															<input class="tabledit-input form-control input-sm" type="text" name="Vendor" value={{transaction.vendor}} style="display: none;" disabled="">
-														</td>
-														<td class="tabledit-view-mode" style="cursor: pointer;">
-															<span class="tabledit-span" style="">{{transaction.date}}</span>
-															<input class="tabledit-input form-control input-sm fill" type="date" name="Date" value={{transaction.date}} style="display: none;" disabled="">
-														</td>
-														<td class="tabledit-view-mode" style="cursor: pointer;">
-															<span class="tabledit-span" style="">{{transaction.category}}</span>
-															<input class="tabledit-input form-control input-sm fill" type="text" name="Category" value={{transaction.category}} style="display: none;" disabled="">
-														</td>
-														<td class="tabledit-view-mode" style="cursor: pointer;">
-															<span class="tabledit-span" style="">{{transaction.amount}}</span>
-															<input class="tabledit-input form-control input-sm fill" type="number" name="Amount" value={{transaction.amount}} style="display: none;" disabled="">
-														</td>
-														<td>
-															<button type="submit" class="btn-sm btn-primary">Update<i class="fas fa-edit"></i></button>
-															<button type="button" class="btn-sm btn-danger">Delete<i class="far fa-trash-alt"></i></button>
-														</td>
-													</tr>
-												{% endfor %}
+			                                	<tr>
+			                                    	<th scope="row" style="display: none;">{{transaction.transaction_id}}</th>
+			                                    	<td class="tabledit-view-mode" style="cursor: pointer;">
+													<span class="tabledit-span"></span>
+													<input class="tabledit-input form-control input-sm" type="text" name="Description" value={{ transaction.description }} style='{{ transaction.description }}' disabled="">
+												</td>
+												<td class="tabledit-view-mode" style="cursor: pointer;"><span class="tabledit-span">
+			                                        </span><input class="tabledit-input form-control input-sm" type="text" name="Vendor" value={{transaction.vendor}} style="{{ transaction.vendor }}" disabled="">
+												</td>
+			                                    <td class="tabledit-view-mode" style="cursor: pointer;"><span class="tabledit-span" style="">
+			                                        </span><input class="tabledit-input form-control input-sm fill" type="date" name="Date" value={{ transaction.date }} style="{{ transaction.date }}" disabled="">{{ transaction.date }}
+												</td>
+			                                    <td class="tabledit-view-mode" style="cursor: pointer;"><span class="tabledit-span" style="">
+			                                        </span><input class="tabledit-input form-control input-sm fill" type="text" name="Category" value={{ transaction.category }} style="{{ transaction.category }}" disabled="">
+												</td>
+			                                    <td class="tabledit-view-mode" style="cursor: pointer;"><span class="tabledit-span" style="">
+			                                        </span><input class="tabledit-input form-control input-sm fill" type="number" name="Amount" value={{ transaction.amount }} style="{{ transaction.amount }}" disabled="">
+												</td>
+												<td>
+													<button type="submit" class="btn-sm btn-primary">Update<i class="fas fa-edit"></i></button>
+		            							<button type="button" class="btn-sm btn-danger">Delete<i class="far fa-trash-alt"></i></button></td>
+			                                </tr>
+			                                {% endfor %}
 											</tbody>
 										</table>
 									</div>
@@ -207,7 +202,7 @@
 					</div>
 				</div>
 				<div style="display: flex;">
-					<form method="POST">
+					<form method="POST">{% csrf_token %}
 						<div class='card m-3 p-3'>
 							<h4>Add new transaction</h4>
 							<div class="form-inline">
@@ -220,15 +215,15 @@
 								<label class="mr-sm-2" for="inlineFormCustomSelect">Select a Category</label>
 								<select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
 									<option selected>Choose...</option>
-									<option value="1">One</option>
-									<option value="2">Two</option>
-									<option value="3">Three</option>
+									{% for category in categories %}
+										<option value="{{ category.description }}">{{ category.description }}</option>
+									{% endfor %}
 								</select>
 								<div class="col p-2">
 									<input type="text" class="form-control" placeholder="New Amount">
 								</div>
 								<div class="col p-2">
-									<input type="submit" class="form-control btn-sm btn-success" value="Add Transaction">
+									<input type="submit" class="form-control btn-sm btn-success" value="Create Transaction" name="create_transaction">
 								</div>
 							</div>
 						</div>
@@ -254,6 +249,18 @@
 			</div>
 			<div class="tab-pane" id="stats" role="tabpanel" aria-labelledby="stats-tab">
 				<div class='p5 m5'><h1 >Stats</h1></div>
+					<form method="POST">{% csrf_token %}
+				<div class="row">
+						<div class="col-md-1"><input type="submit" class="form-control btn-sm btn-danger" value="Update Plot" name="create_pie_plot"></div>
+						{% if graph %}
+						{{ graph|safe }}
+						{% else %}
+						<p>No graph was provided.</p>
+						{% endif %}
+					</div>
+			</form>
+
+	</div>
 			</div>
 		</div>
 	</div>
