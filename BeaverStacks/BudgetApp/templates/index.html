@@ -69,6 +69,16 @@
 													</div>
 												</div>
 											</div>
+											<div class="col-sm">
+												<div>
+													<form method="POST">{% csrf_token %}
+														<input type="submit" value="Export Transaction Plot" class="btn form-control" name="create_pie_plot">
+														{% if graph %}
+														{{ graph }}
+														{% endif %}
+													</form>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
