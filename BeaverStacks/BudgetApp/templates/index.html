@@ -259,8 +259,24 @@
 							</div>
 						</div>
 					</form>
+
+
 				</div>
 				<div class='w-50'></div>
+
+				<!-- List of Current Categories-->
+						<div class="pt-5">
+							{% for category in categories %}
+								<form method="POST">{% csrf_token %}
+									<div class="row">
+											<div class="col-sm-1"><input type="hidden" value='{{ category.id }}' name='primary_key'></div>
+											<div class="col-md-2"><input type="text" value="{{ category.description }}" name="category_description"></div>
+											<div class="col-md-1"><input type="submit" class="form-control btn-sm btn-danger" value="Update" name="update_category"></div>
+											<div class="col-md-1"><input type="submit" class="form-control btn-sm btn-danger" value="Delete Category" name="delete_category"></div>
+										</div>
+								</form>
+							{% endfor %}
+						</div>
 			</div>
 			<div class="tab-pane" id="stats" role="tabpanel" aria-labelledby="stats-tab">
 				<div class='p5 m5'><h1 >Stats</h1></div>
@@ -268,18 +284,7 @@
 		</div>
 	</div>
 
-	<div class="pt-5">
-		{% for category in categories %}
-			<form method="POST">{% csrf_token %}
-				<div class="row">
-						<div class="col-sm-1"><input type="hidden" value='{{ category.id }}' name='primary_key'></div>
-						<div class="col-md-2"><input type="text" value="{{ category.description }}" name="category_description"></div>
-						<div class="col-md-1"><input type="submit" class="form-control btn-sm btn-danger" value="Update" name="update_category"></div>
-						<div class="col-md-1"><input type="submit" class="form-control btn-sm btn-danger" value="Delete Category" name="delete_category"></div>
-					</div>
-			</form>
-		{% endfor %}
-	</div>
+
 
 	<div class="pt-5">
 		{% for group in groups %}
