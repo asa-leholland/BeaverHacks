@@ -4,11 +4,12 @@
 """
 
 
-from .models import Categories, Groups, Budgets, Transactions
+from .models import Categories, Groups, Budgets, Transactions, GroupCategories
 from django.utils import timezone
 from django.shortcuts import render
 from .forms import *
 import datetime
+
 
 # Create your views here.
 def base(request):
@@ -17,14 +18,17 @@ def base(request):
 
 def index(request):
     current_year = timezone.now().year
-    current_month = timezone.now().month
-
+    current_month_num = timezone.now().month
+    current_month_name = datetime.date.today()
+    current_month = current_month_name.strftime("%B")
+    print(current_month_num)
     # Populate Objects by month / year
 
     categories = Categories()
     groups = Groups()
     transactions = Transactions()
     budgets = Budgets()
+    group_transactions = GroupCategories()
 
     if request.method == 'POST':
         if request.POST.get('create_budget'):
@@ -58,14 +62,16 @@ def index(request):
             delete_transaction(request, request.POST.get('primary_key'))
 
     # this is a list of all the objects in the db
-    budgets = Budgets.objects.all()
+    budget = get_budget_by_month_year(current_month_num, current_year)
     transactions = Transactions.objects.all()
     categories = Categories.objects.all()
     groups = Groups.objects.all()
 
     context = {
-        'month_year_combinations': get_month_year_combinations(),
-        'budgets': budgets,
+        # 'month_year_combinations': get_month_year_combinations(),
+        'month': current_month,
+        'year': current_year,
+        'budget': budget,
         'transactions': transactions,
         'categories': categories,
         'groups': groups
@@ -88,10 +94,10 @@ def create_group(request, groups):
 def create_budget(request, budgets):
     """ Creates a new Budget """
     budgets.amount = request.POST.get('budget_amount')
-    budgets.spent = request.POST.get('budget_spent')
-    budgets.remaining = request.POST.get('budget_remaining')
-    budgets.year = request.POST.get('budget_year')
-    budgets.month = request.POST.get('budget_month')
+    budgets.spent = request.POST.get('budget_amount')
+    budgets.remaining = request.POST.get('budget_amount')
+    budgets.year = datetime.date.today()
+    budgets.month = datetime.date.today()
     budgets.save()
 
 
@@ -103,7 +109,6 @@ def create_transaction(request, transactions):
     transactions.date = request.POST.get('transaction_date')
     transactions.amount = request.POST.get('transaction_amount')
     transactions.save()
-
 
 
 def delete_category(request, pk):
@@ -149,6 +154,13 @@ def update_group(request, pk):
         group.save()
 
 
+def update_budget(request, pk):
+    """ Updates a Budget - needs a primary key"""
+    budget = Budgets.objects.get(id=pk)
+    if request.method == 'POST':
+        create_budget(request, budget)
+
+
 def update_transaction(request, pk):
     transaction = Transactions.objects.get(id=pk)
     if request.method == 'POST':
@@ -162,11 +174,22 @@ def get_month_year_combinations():
     #     budget_list.append(str(budget_item.month) + str(budget_item.year))
     return budget_list
 
-def get_budget_id_by_month_year(month, year):
+
+def get_budget_by_month_year(month, year):
     budgets = Budgets.objects.all()
     for budget in budgets:
-        if budget.year == year and budget.month == month:
+        if budget.year.year == year and budget.month.month == month:
             return budget
+
+
+# def buget_exists():
+#     budgets = Budgets.objects.all()
+#     for budget in budgets:
+#         print(month)
+#         if budget.year.year == year and budget.month.month == month:
+#             print(budget)
+#             return budget
+
 
 def get_transaction_sum_by_month_year(month, year):
     transactions = Transactions.objects.all()

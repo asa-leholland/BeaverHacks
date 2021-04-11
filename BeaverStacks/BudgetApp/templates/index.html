@@ -3,7 +3,7 @@
 {% block content %}
 	<div>
 
-		<div class="dropdown">
+<!--		<div class="dropdown">
 			<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
 			  Select a Budget
 			</button>
@@ -12,7 +12,7 @@
 					<li><a class="dropdown-item" href="#"></a>{{ budget }}</li>
 				{% endfor %}
 			</ul>
-		</div>
+		</div>-->
 
 
 		<ul class="nav nav-tabs mt-2" id="myTab" role="tablist">
@@ -31,7 +31,7 @@
 		<div class="tab-content mt-5" id="tabs">
 			<div class="tab-pane active" id="budget" role="tabpanel" aria-labelledby="budget-tab">
 				<div>
-					<div class='p5 m5'><h1 >Budget</h1></div>
+					<div class='p5 m5'><h1 >Budget - {{month}}  {{year}}</h1></div>
 					<div class="card">
 						<div class="card-body">
 							<div class="row">
@@ -40,25 +40,32 @@
 										<div class="row">
 											<div class="col-sm">
 												<div class="form-inline">
+													<form method="POST">{% csrf_token %}
+														<div>
+															<div class="form-group">
+																<label class="col-sm-6 col-form-label"  for="budget_amount">Total Amount Budgeted: </label>
+																<div class="input-group">
+																	<input type="text" class="form-control" style="margin-right:5px;" name="budget_amount" id="budget_amount" value="{{budget.amount}}"/>
+																	<span class="input-group-addon"><input type="submit" class="form-control btn btn-success" value="Save" name="create_budget"></span>
+																</div>
+															</div>
+														</div>
+													</form>
+												</div>
+											</div>
+											<div class="col-sm">
+												<div class="form-inline">
 													<div class="col-md-12 form-group">
-														<label class="col-sm-6 col-form-label"  for="budgetAmount">Total Amount Budgeted: </label>
-														<input type="text" class="form-control" name="budgetAmount" id="budgetAmount" value="$70,000,000" readonly/>
+														<label class="col-sm-6 col-form-label"  for="budget_spent">Total Amount Spent: </label>
+														<input type="text" class="form-control" name="budget_spent" id="budget_spent" value="{{budget.spent}}" readonly/>
 													</div>
 												</div>
 											</div>
 											<div class="col-sm">
 												<div class="form-inline">
 													<div class="col-md-12 form-group">
-														<label class="col-sm-6 col-form-label"  for="budgetSpent">Total Amount Spent: </label>
-														<input type="text" class="form-control" name="budgetSpent" id="budgetSpent" value="$150,000,000" readonly/>
-													</div>
-												</div>
-											</div>
-											<div class="col-sm">
-												<div class="form-inline">
-													<div class="col-md-12 form-group">
-														<label class="col-sm-6 col-form-label"  for="budgetRemaining">Total Amount Remaining: </label>
-														<input type="text" class="form-control" name="budgetRemaining" id="budgetRemaining" value="$26,000,000" readonly/>
+														<label class="col-sm-6 col-form-label"  for="budget_remaining">Total Amount Remaining: </label>
+														<input type="text" class="form-control" name="budget_remaining" id="budget_remaining" value="{{budget.remaining}}" readonly/>
 													</div>
 												</div>
 											</div>
@@ -82,7 +89,7 @@
 											<th scope="row" style="display: none;">{group.description}}</th>
 											<td class="tabledit-view-mode" style="cursor: pointer;">
 												<span class="tabledit-span">{{group.description}}</span>
-												<input class="tabledit-input form-control input-sm" type="text" name="description" value={{group.group_description}} style="display: none;" disabled="">
+												<input class="tabledit-input form-control input-sm" type="text" name="description" value={{group.description}} style="display: none;" disabled="">
 											</td>
 											<td>Water, Electric</td>
 											<td class="tabledit-view-mode" style="cursor: pointer;">
@@ -198,7 +205,7 @@
 																<td>
 																	<p>Current category: {{ transaction.category }}</p>
 																	<label class="mr-sm-2" for="inlineFormCustomSelect">Update Category:</label>
-																	<select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="transaction_category">
+																	<select class="custom-select mr-sm-2" id="inlineFormCustomSelect1" name="transaction_category">
 																		<option selected>Choose...</option>
 																		{% for category in categories %}
 																			<option value="{{category.description}}">{{category.description}}</option>
