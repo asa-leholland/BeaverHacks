@@ -115,30 +115,16 @@
 							<div class="card">
 								<div class="card-body">
 									<div class="row">
-										<form method="POST">{% csrf_token %}
-											<h4>Add a New Group</h4>
-											<p>You can group existing categories of transactions together.</p>
-											<div class="col-sm">
-												<div class="form-inline">
-													<div class="col p1">
-														<input type="text" class="form-control" placeholder="New Group Name" name="group_description">
-													</div>
+										<form method="POST" class="form-inline">{% csrf_token %}
+											<div class="form-group">
+												<div class="input-group">
+													<label class="col-sm col-form-label"  for="group_description">Add a new Group of transaction categories: </label>
+													<input type="text" class="form-control" placeholder="New Group Name" id="group_description" name="group_description">
+													<input type="number" class="form-control" placeholder="Amount to Budget">
+													<span class="input-group-addon"><input type="submit" class="form-control btn btn-success" value="Add" name="create_group"></span>
 												</div>
 											</div>
-											<div class="col-sm">
-												<div class="form-inline">
-													<div class="col-md-12 form-group">
-														<input type="text" class="form-control" placeholder="Amount to Budget">
-													</div>
-												</div>
-											</div>
-											<div class="col-sm">
-												<div class="form-inline">
-													<div class="col-md-12 form-group">
-														<input type="submit" class="form-control btn-sm btn-success" value="Add Group" name="create_group">
-													</div>
-												</div>
-											</div>
+
 										</form>
 									</div>
 								</div>
