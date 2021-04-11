@@ -10,8 +10,11 @@ body {
     background: linear-gradient(to bottom right, #3FE5E5, #0B274D)
 }
 
-
-
+.tab-pane{
+    height:90%;
+    overflow-y:auto;
+    overflow-x: hidden;
+}
 
 #main_navbar {
     background: #0B274D;
