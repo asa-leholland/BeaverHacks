@@ -5,6 +5,8 @@ from datetime import date
 
 
 # Create your models here.
+
+
 class Groups(models.Model):
     """ Model to handle main category groupings of the budget"""
     description = models.CharField(max_length=100)
@@ -29,12 +31,6 @@ class Transactions(models.Model):
     category = models.CharField(default='', max_length=50)
     date = models.DateField(default=date.today)
     amount = models.DecimalField(default=0.00, max_digits=16, decimal_places=2)
-
-    def get_category(self):
-        return self.category
-
-    def get_amount(self):
-        return self.amount
 
 
 class Budgets(models.Model):
