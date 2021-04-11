@@ -22,17 +22,28 @@
 				<div>
 					<div class='p5 m5'><h1 >Budget - {{month}}  {{year}}</h1></div>
 					<div class="card">
+						<div>
+
+<!--							<div style="vertical-align:bottom">-->
+<!--								<form method="POST">{% csrf_token %}-->
+<!--									<input type="submit" value="Export Transaction Plot" class="btn form-control" name="create_pie_plot">-->
+<!--									{% if graph %}-->
+<!--									{{ graph }}-->
+<!--									{% endif %}-->
+<!--								</form>-->
+<!--							</div>-->
+						</div>
 						<div class="card-body">
 							<div class="row">
 								<div class="card">
 									<div class="card-body">
-										<div class="row">
-											<div class="col-sm">
+										<div class="row mb-2">
+											<div class="col-md-4">
 												<div class="form-inline">
 													<form method="POST">{% csrf_token %}
 														<div>
 															<div class="form-group">
-																<label class="col-sm-6 col-form-label"  for="budget_amount">Total Amount Budgeted: </label>
+																<label class="col-sm-7 col-form-label"  for="budget_amount">Total Amount Budgeted: </label>
 																<div class="input-group">
 																	<input type="text" class="form-control" style="margin-right:5px;" name="budget_amount" id="budget_amount" value="{{budget.amount}}"/>
 																	<span class="input-group-addon"><input type="submit" class="form-control btn btn-success" value="Save" name="create_budget"></span>
@@ -42,30 +53,20 @@
 													</form>
 												</div>
 											</div>
-											<div class="col-sm">
+											<div class="col-md-4">
 												<div class="form-inline">
-													<div class="col-md-12 form-group">
-														<label class="col-sm-6 col-form-label"  for="budget_spent">Total Amount Spent: </label>
+													<div class="form-group">
+														<label class="col-sm-7 col-form-label" style="text-align: left;" for="budget_spent">Total Amount Spent: </label>
 														<input type="text" class="form-control" name="budget_spent" id="budget_spent" value="{{budget.spent}}" readonly/>
 													</div>
 												</div>
 											</div>
-											<div class="col-sm">
+											<div class="col-md-4">
 												<div class="form-inline">
-													<div class="col-md-12 form-group">
-														<label class="col-sm-6 col-form-label"  for="budget_remaining">Total Amount Remaining: </label>
+													<div class="form-group">
+														<label class="col-sm-7 col-form-label" style="text-align: left;" for="budget_remaining">Total Amount Remaining: </label>
 														<input type="text" class="form-control" name="budget_remaining" id="budget_remaining" value="{{budget.remaining}}" readonly/>
 													</div>
-												</div>
-											</div>
-											<div class="col-sm">
-												<div>
-													<form method="POST">{% csrf_token %}
-														<input type="submit" value="Export Transaction Plot" class="btn form-control" name="create_pie_plot">
-														{% if graph %}
-														{{ graph }}
-														{% endif %}
-													</form>
 												</div>
 											</div>
 										</div>
@@ -87,7 +88,6 @@
 										<tr>
 											<td><input type="text" class="form-control" placeholder="New Category Name" name="category_description"></td>
 											<td>
-												<label class="mr-sm-2" for="inlineFormCustomSelect">Select a Group</label>
 												<select class="custom-select mr-sm-2" id="inlineFormCustomSelect1" name="category_group">
 													<option selected>Choose...</option>
 													{% for group in groups %}
