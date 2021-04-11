@@ -125,8 +125,8 @@
 												<input class="tabledit-input form-control input-sm" type="text" name="remaining" value={{group.remaining}} style="display: none;" disabled="">
 											</td>
 											<td>
-												<button type="submit" class="btn-sm btn-primary">Update<i class="fas fa-edit"></i></button>
-												<button type="submit" class="btn-sm btn-danger">Delete<i class="far fa-trash-alt"></i></button>
+												<button type="submit" class="btn-sm btn-primary">Update <i class="fa fa-edit"></i></button>
+												<button type="submit" class="btn-sm btn-danger">Delete <i class="fa fa-trash"></i></button>
 											</td>
 										</tr>
 									{% endfor %}
@@ -187,6 +187,23 @@
 								</form>
 							{% endfor %}
 						</div>
+
+				<!-- Add new Categories Form -->
+					<form method="POST">{% csrf_token %}
+						<div class='card m-3 p-3'>
+						<h4>Add New Category</h4>
+							<p>All categories will be displayed on the Transactions page.</p>
+							<p>All categories are selectable as Group.</p>
+							<div class="form-inline">
+								<div class="col">
+									<input type="text" class="form-control" placeholder="New Category Name" name="category_description">
+								</div>
+								<div class="col">
+									<input type="submit" class="form-control btn-sm btn-success" value="Add Category" name="create_category">
+								</div>
+							</div>
+						</div>
+					</form>
 			</div>
 
 			<div class="tab-pane" id="transactions" role="tabpanel" aria-labelledby="transactions-tab">
