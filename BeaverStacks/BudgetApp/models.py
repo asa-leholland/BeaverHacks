@@ -18,6 +18,7 @@ class Groups(models.Model):
 class Categories(models.Model):
     """ Model that handles subcategories and maps them back to a main category"""
     description = models.CharField(max_length=100)
+    budgeted = models.DecimalField(default=0.00, max_digits=16, decimal_places=2)
 
 
 class GroupCategories(models.Model):

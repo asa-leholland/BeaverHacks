@@ -79,53 +79,90 @@
 									</div>
 								</div>
 							</div>
+							<div>
+								<table class="table">
+									<thead>
+										<tr>
+											<th style="display: none; width : 2px">#</th>
+											<th scope="col">Transaction Category</th>
+											<th scope="col">Transaction Group</th>
+											<th scope="col">Amount Budgeted</th>
+										</tr>
+									</thead>
+									<tbody>
+									<!-- this is the add category form-->
+										<form method="POST">{% csrf_token %}
+											<tr>
+												<td><input type="text" class="form-control" placeholder="New Category Name" name="category_description"></td>
+												<td>
+													<label class="mr-sm-2" for="inlineFormCustomSelect">Select a Group</label>
+													<select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="category_group">
+														<option selected>Choose...</option>
 														{% for group in groups %}
-									<script type="text/javascript" src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1567487539/jquery.tabledit.js"></script>
-									<div class="mt-100">
-										<div class="row">
-											<div class="col-md-12">
-												<div class="card">
-													<div class="card-header">
-														<h5>{{ group.description }}</h5>
-														<div class="card-block">
-															<div class="table-responsive">
-																<table class="table">
-																	<thead>
-																		<tr>
-																			<th style="display: none; width : 2px">#</th>
-																			<th scope="col">Transaction Category</th>
-																			<th scope="col">Amount Budgeted</th>
-																			<th scope="col">Amount Spent</th>
-																			<th scope="col">Amount Remaining</th>
-																		</tr>
-																	</thead>
-																	<tbody>
-																		{% for category in categories %}
-																			{% if group.id == group_category.group_id %}
-																				{% if category.id == group_category_id %}
-																					 <form method="POST">{% csrf_token %}
-																						<tr>
-																							<td style="display: none; width : 2px"><input type="hidden" value='{{ category.id }}' name="primary_key"></td>
-																							<td><input type="text" class="form-control" value='{{ category.budgeted }}' name="category_description"></td>
-																							<td><input type="text" class="form-control" value='{{ category.spent }}' name="category_spent"></td>
-																							<td><input type="date" class="form-control" value='{{ category.remaining }}' name="category_remaining"></td>
-																							<td><input type="submit" class="form-control btn-sm btn-primary" value="Update" name="update_category"></td>
-																							<td><input type="submit" class="form-control btn-sm btn-danger" value="Delete" name="delete_category"></td>
-																						</tr>
-																					</form>
-																				{% endif %}
-																			{% endif %}
-																		{% endfor %}
-																	</tbody>
-																</table>
+															<option value="{{group.description}}">{{group.description}}</option>
+														{% endfor %}
+													</select>
+												</td>
+												<td><input type="text" class="form-control" placeholder="Amount Budgeted" name="category_budgeted"></td>
+												<td><input type="submit" class="form-control btn-sm btn-success" value="Add Category" name="create_category"></td>
+											</tr>
+										</form>
+									</tbody>
+								</table>
+							</div>
+
+								{% for group in groups %}
+										<script type="text/javascript" src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1567487539/jquery.tabledit.js"></script>
+										<div class="mt-100">
+											<div class="row">
+												<div class="col-md-12">
+													<div class="card">
+														<div class="card-header">
+															<h5>{{ group.description }}</h5>
+															<div class="card-block">
+																<div class="table-responsive">
+																	<table class="table">
+
+																		<thead>
+																			<tr>
+																				<th style="display: none; width : 2px">#</th>
+																				<th scope="col">Transaction Category</th>
+																				<th scope="col">Amount Budgeted</th>
+																				<th scope="col">Amount Spent</th>
+																				<th scope="col">Amount Remaining</th>
+																			</tr>
+																		</thead>
+
+																		<tbody>
+																		{% for group_category in group_categories %}
+																			{% for category in categories %}
+																				{% if category.id == group_category.category_id.id %}
+																					{% if group.id == group_category.group_id.id %}
+																						 <form method="POST">{% csrf_token %}
+																							<tr>
+																								<td style="display: none; width : 2px"><input type="hidden" value='{{ category.id }}' name="primary_key"></td>
+																								<td><input type="text" class="form-control" value='{{ category.description}}' name="category_description"></td>
+																								<td><input type="text" class="form-control" value='{{ category.budgeted }}' name="category_budgeted"></td>
+																								<td><input type="text" class="form-control" value='{{ category.spent }}' name="category_spent"></td>
+																								<td><input type="text" class="form-control" value='{{ category.remaining }}' name="category_remaining"></td>
+																								<td><input type="submit" class="form-control btn-sm btn-primary" value="Update" name="update_category"></td>
+																								<td><input type="submit" class="form-control btn-sm btn-danger" value="Delete" name="delete_category"></td>
+																							</tr>
+																						</form>
+																						{% endif %}
+																					{% endif %}
+																				{% endfor %}
+																			{% endfor %}
+																		</tbody>
+																	</table>
+																</div>
 															</div>
 														</div>
 													</div>
 												</div>
 											</div>
 										</div>
-									</div>
-							{% endfor %}
+									{% endfor %}
 							<div class="card">
 								<div class="card-body">
 									<div class="row">
