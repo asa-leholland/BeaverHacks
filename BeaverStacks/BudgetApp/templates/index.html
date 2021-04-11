@@ -86,10 +86,10 @@
 								<tbody>
 									{% for group in groups %}
 										<tr>
-											<th scope="row" style="display: none;">{group.group_description}}</th>
+											<th scope="row" style="display: none;">{group.description}}</th>
 											<td class="tabledit-view-mode" style="cursor: pointer;">
-												<span class="tabledit-span">{{group.group_description}}</span>
-												<input class="tabledit-input form-control input-sm" type="text" name="description" value={{group.group_description}} style="display: none;" disabled="">
+												<span class="tabledit-span">{{group.description}}</span>
+												<input class="tabledit-input form-control input-sm" type="text" name="description" value={{group.description}} style="display: none;" disabled="">
 											</td>
 											<td>Water, Electric</td>
 											<td class="tabledit-view-mode" style="cursor: pointer;">
@@ -157,56 +157,70 @@
 						<div class="col-md-12">
 							<div class="card">
 								<div class="card-header">
-									<h5>Edit row with Click</h5>
-									<span>Eventually we should be able to click on row to perform edit action then Enter for save</span>
-								</div>
-								<div class="card-block">
-									<div class="table-responsive">
+									<h5>Create, update and delete transactions here.</h5>
 
-										<table class="table table-striped table-bordered" id="example-1">
-											<thead>
-												<tr>
-													<th style="display: none;">#</th>
-													<th>Transaction</th>
-													<th>Vendor</th>
-													<th>Date</th>
-													<th>Category</th>
-													<th>Amount</th>
-													<th></th>
-												</tr>
-											</thead>
-											<tbody>
-												{% for transaction in transactions %}
+									<div class="card-block">
+										<div class="table-responsive">
+
+											<table class="table table-striped table-bordered" id="example-1">
+												<thead>
 													<tr>
-														<th scope="row" style="display: none;">{{transaction.transaction_id}}</th>
-														<td class="tabledit-view-mode" style="cursor: pointer;">
-															<span class="tabledit-span">{{transaction.description}}</span>
-															<input class="tabledit-input form-control input-sm" type="text" name="Description" value={{transaction.description}} style="display: none;" disabled="">
-														</td>
-														<td class="tabledit-view-mode" style="cursor: pointer;">
-															<span class="tabledit-span">{{transaction.vendor}}</span>
-															<input class="tabledit-input form-control input-sm" type="text" name="Vendor" value={{transaction.vendor}} style="display: none;" disabled="">
-														</td>
-														<td class="tabledit-view-mode" style="cursor: pointer;">
-															<span class="tabledit-span" style="">{{transaction.date}}</span>
-															<input class="tabledit-input form-control input-sm fill" type="date" name="Date" value={{transaction.date}} style="display: none;" disabled="">
-														</td>
-														<td class="tabledit-view-mode" style="cursor: pointer;">
-															<span class="tabledit-span" style="">{{transaction.category}}</span>
-															<input class="tabledit-input form-control input-sm fill" type="text" name="Category" value={{transaction.category}} style="display: none;" disabled="">
-														</td>
-														<td class="tabledit-view-mode" style="cursor: pointer;">
-															<span class="tabledit-span" style="">{{transaction.amount}}</span>
-															<input class="tabledit-input form-control input-sm fill" type="number" name="Amount" value={{transaction.amount}} style="display: none;" disabled="">
-														</td>
-														<td>
-															<button type="submit" class="btn-sm btn-primary">Update<i class="fas fa-edit"></i></button>
-															<button type="button" class="btn-sm btn-danger">Delete<i class="far fa-trash-alt"></i></button>
-														</td>
+														<th style="display: none; width : 2px">#</th>
+														<th>Transaction</th>
+														<th>Vendor</th>
+														<th>Date</th>
+														<th>Category</th>
+														<th>Amount</th>
+														<th></th>
 													</tr>
-												{% endfor %}
-											</tbody>
-										</table>
+												</thead>
+
+												<tbody>
+													<form method="POST">{% csrf_token %}
+														<tr>
+															<td><input type="text" class="form-control" placeholder="New Transaction Name" name="transaction_description"></td>
+															<td><input type="text" class="form-control" placeholder="Vendor" name="transaction_vendor" ></td>
+															<td><input type="date" class="form-control" name="transaction_date"></td>
+															<td>
+																<label class="mr-sm-2" for="inlineFormCustomSelect">Select a Category</label>
+																<select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="transaction_category">
+																	<option selected>Choose...</option>
+																	{% for category in categories %}
+																		<option value="{{category.description}}">{{category.description}}</option>
+																	{% endfor %}
+																</select>
+															</td>
+															<td><input type="text" class="form-control" placeholder="Amount" name="transaction_amount"></td>
+															<td><input type="submit" class="form-control btn-sm btn-success" value="Add Transaction" name="create_transaction"></td>
+
+														</tr>
+													</form>
+													{% for transaction in transactions %}
+														<form method="POST">{% csrf_token %}
+															<tr>
+																<td style="display: none; width : 2px"><input type="hidden" value='{{ transaction.id }}' name="primary_key"></td>
+																<td><input type="text" class="form-control" value='{{ transaction.description }}' name="transaction_description"></td>
+																<td><input type="text" class="form-control" value='{{ transaction.vendor }}' name="transaction_vendor"></td>
+																<td><input type="date" class="form-control" value='{{ transaction.date }}' name="transaction_date">{{transaction.date}}</td>
+																<td>
+																	<p>Current category: {{ transaction.category }}</p>
+																	<label class="mr-sm-2" for="inlineFormCustomSelect">Update Category:</label>
+																	<select class="custom-select mr-sm-2" id="inlineFormCustomSelect1" name="transaction_category">
+																		<option selected>Choose...</option>
+																		{% for category in categories %}
+																			<option value="{{category.description}}">{{category.description}}</option>
+																		{% endfor %}
+																	</select>
+																</td>
+																<td><input type="text" class="form-control" value='{{ transaction.amount }}' name="transaction_amount"></td>
+																<td><input type="submit" class="form-control btn-sm btn-primary" value="Update" name="update_transaction"></td>
+																<td><input type="submit" class="form-control btn-sm btn-danger" value="Delete" name="delete_transaction"></td>
+															</tr>
+														</form>
+													{% endfor %}
+												</tbody>
+											</table>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -214,35 +228,35 @@
 					</div>
 				</div>
 				<div style="display: flex;">
-					<form method="POST">{% csrf_token %}
-						<div class='card m-3 p-3'>
-							<h4>Add new transaction</h4>
-							<div class="form-inline">
-								<div class="col p-2">
-									<input type="text" class="form-control" placeholder="New Transaction Name" name="transaction_description">
-								</div>
-								<div class="col p-2">
-									<input type="text" class="form-control" name="transaction_vendor" placeholder="Vendor">
-								</div>
-								<div class="col p-2">
-									<input type="date" class="form-control" name="transaction_date">
-								</div>
-								<label class="mr-sm-2" for="inlineFormCustomSelect">Select a Category</label>
-								<select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="transaction_category">
-									<option selected>Choose...</option>
-									<option value="1">One</option>
-									<option value="2">Two</option>
-									<option value="3">Three</option>
-								</select>
-								<div class="col p-2">
-									<input type="text" class="form-control" placeholder="Amount" name="transaction_amount">
-								</div>
-								<div class="col p-2">
-									<input type="submit" class="form-control btn-sm btn-success" value="Add Transaction" name="create_transaction">
-								</div>
-							</div>
-						</div>
-					</form>
+<!--					<form method="POST">{% csrf_token %}-->
+<!--						<div class='card m-3 p-3'>-->
+<!--							<h4>Add new transaction</h4>-->
+<!--							<div class="form-inline">-->
+<!--								<div class="col p-2">-->
+<!--									<input type="text" class="form-control" placeholder="New Transaction Name" name="transaction_description">-->
+<!--								</div>-->
+<!--								<div class="col p-2">-->
+<!--									<input type="text" class="form-control" name="transaction_vendor" placeholder="Vendor">-->
+<!--								</div>-->
+<!--								<div class="col p-2">-->
+<!--									<input type="date" class="form-control" name="transaction_date">-->
+<!--								</div>-->
+<!--								<label class="mr-sm-2" for="inlineFormCustomSelect">Select a Category</label>-->
+<!--								<select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="transaction_category">-->
+<!--									<option selected>Choose...</option>-->
+<!--									{% for category in categories %}-->
+<!--										<option value="{{category.id}}">{{category.description}}</option>-->
+<!--									{% endfor %}-->
+<!--								</select>-->
+<!--								<div class="col p-2">-->
+<!--									<input type="text" class="form-control" placeholder="Amount" name="transaction_amount">-->
+<!--								</div>-->
+<!--								<div class="col p-2">-->
+<!--									<input type="submit" class="form-control btn-sm btn-success" value="Add Transaction" name="create_transaction">-->
+<!--								</div>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--					</form>-->
 					<!-- New Category Form -->
 					<form method="POST">{% csrf_token %}
 						<div class='card m-3 p-3'>
