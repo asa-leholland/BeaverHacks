@@ -23,7 +23,7 @@ class Categories(models.Model):
 class GroupCategories(models.Model):
     group_id = models.ForeignKey(Groups, on_delete=models.CASCADE)
     category_id = models.ForeignKey(Categories, on_delete=models.CASCADE)
-    
+
     
 class Transactions(models.Model):
     description = models.CharField(default='', max_length=50)

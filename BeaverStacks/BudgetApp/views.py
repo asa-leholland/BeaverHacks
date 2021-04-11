@@ -8,7 +8,7 @@ from .models import Categories, Groups, Budgets, Transactions
 from django.utils import timezone
 from django.shortcuts import render
 from .forms import *
-
+import datetime
 
 # Create your views here.
 def base(request):
@@ -29,20 +29,33 @@ def index(request):
     if request.method == 'POST':
         if request.POST.get('create_budget'):
             create_budget(request, budgets)
+
         if request.POST.get('create_category'):
             create_category(request, categories)
+
         if request.POST.get('create_group'):
             create_group(request, groups)
+
         if request.POST.get('create_transaction'):
             create_transaction(request, transactions)
+
         if request.POST.get('update_category'):
             update_category(request, request.POST.get('primary_key'))
+
         if request.POST.get('update_group'):
             update_group(request, request.POST.get('primary_key'))
+
+        if request.POST.get('update_transaction'):
+            update_transaction(request, request.POST.get('primary_key'))
+
         if request.POST.get('delete_category'):
             delete_category(request, request.POST.get('primary_key'))
+
         if request.POST.get('delete_group'):
             delete_group(request, request.POST.get('primary_key'))
+
+        if request.POST.get('delete_transaction'):
+            delete_transaction(request, request.POST.get('primary_key'))
 
     # this is a list of all the objects in the db
     budgets = Budgets.objects.all()
@@ -90,6 +103,7 @@ def create_transaction(request, transactions):
     transactions.date = request.POST.get('transaction_date')
     transactions.amount = request.POST.get('transaction_amount')
     transactions.save()
+
 
 
 def delete_category(request, pk):
@@ -147,3 +161,22 @@ def get_month_year_combinations():
     # for budget_item in form:
     #     budget_list.append(str(budget_item.month) + str(budget_item.year))
     return budget_list
+
+def get_budget_id_by_month_year(month, year):
+    budgets = Budgets.objects.all()
+    for budget in budgets:
+        if budget.year == year and budget.month == month:
+            return budget
+
+def get_transaction_sum_by_month_year(month, year):
+    transactions = Transactions.objects.all()
+    total_spent = 0
+
+    for transaction in transactions:
+        if transaction.date.strftime("%M") == month and transaction.date.strftime("%Y") == year:
+            total_spent += transaction.amount
+    return total_spent
+
+
+def update_groups_budget(group, amount):
+    group.spent += amount
