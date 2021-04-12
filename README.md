@@ -15,7 +15,7 @@ The code that was submitted without any further modification can be found [here]
 
 <!-- **Note: Beaver Budgets only supports the Windows platform at the moment.** -->
 ## Usage
-THe application is used to create budgets and assign categories and groups to individual budget transactions. 
+The application is used to create budgets and assign categories and groups to individual budget transactions. 
 A demonstration of the app can be found in the following youtube video:
 [![Budgeting Application Video](https://img.youtube.com/vi/g-6iAvcfBDs/0.jpg)](https://www.youtube.com/watch?v=g-6iAvcfBDs)
 
