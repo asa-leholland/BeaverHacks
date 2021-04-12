@@ -9,7 +9,16 @@ Personal budgeting application
 
 BeaverBudgets is a personal finance web app which allows the user to create a categorized budget and enter day-to-day transactions to track spending. The app provides useful information to facilitate financial decision making for the user, including a snapshot of the remaining budget and total expenditures for each category, as well as data visualizations to summarize spending.
 
+This project was submitted to the [BeaverHacks Spring 2021 Hackathon](https://devpost.com/software/beaver-budgets).
+
+The code that was submitted without any further modification can be found [here](https://github.com/BeaverStacks/BeaverHacks/tree/new_main).
+
 <!-- **Note: Beaver Budgets only supports the Windows platform at the moment.** -->
+## Usage
+THe application is used to create budgets and assign categories and groups to individual budget transactions. 
+A demonstration of the app can be found in the following youtube video:
+[![Budgeting Application Video](https://img.youtube.com/vi/g-6iAvcfBDs/0.jpg)](https://www.youtube.com/watch?v=g-6iAvcfBDs)
+
 
 
 <!-- ### Built With -->
